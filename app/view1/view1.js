@@ -9,6 +9,14 @@ angular.module('myApp.view1', ['ngRoute'])
   });
 }])
 
-.controller('View1Ctrl', [function() {
+.controller('View1Ctrl', ['$scope','$http','hexafy', function($scope, $http, hexafy) {
+  
+  $http.get('http://52.207.215.106:8080/greeting').
+  then(function(response) {
+      $scope.greeting = response.data;
+      alert($scope.greeting)
+  });
 
+  //alert(hexafy.myFunc())
+  
 }]);
