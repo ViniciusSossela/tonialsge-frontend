@@ -1,13 +1,43 @@
 /* app css stylesheet */
+html, 
+body {
+    height: 100%;
+}
+
+.container {
+  height: 100%;
+  background: violet;
+}
+
+.full-height {
+  height: 100%;
+  background: blue;
+}
+
+.div-menu {
+  height: calc(100% - 82px);
+  background: red;
+}
 
 .menu {
   list-style: none;
-  border-bottom: 0.1em solid black;
   margin-bottom: 2em;
   padding: 0 0 0.5em;
 }
 
-.menu:before {
+.view-content {
+  background: blueviolet;
+  width: 100%;
+  height: calc(100% - 82px);
+}
+
+body {
+ background: burlywood;
+ width: 100%;
+ height: 100%;
+}
+
+/* .menu:before {
   content: "[";
 }
 
@@ -15,11 +45,8 @@
   content: "]";
 }
 
-.menu > li {
-  display: inline;
-}
 
 .menu > li + li:before {
   content: "|";
   padding-right: 0.3em;
-}
+} */
