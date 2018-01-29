@@ -11,12 +11,14 @@ body {
 
 .full-height {
   height: 100%;
-  background: blue;
+  background: white;
+  margin-right: 0px;
+  margin-left: 0px;
 }
 
 .div-menu {
-  height: calc(100% - 82px);
-  background: red;
+  height: calc(100% - 57px);
+  background: white;
 }
 
 .menu {
@@ -26,9 +28,16 @@ body {
 }
 
 .view-content {
-  background: blueviolet;
+  background: whitesmoke;
   width: 100%;
-  height: calc(100% - 82px);
+  height: calc(100% - 57px);
+  border-radius: 15px 0px 0px 0px;
+  overflow-y: scroll;
+}
+
+.master-page {
+  height: 100%;
+  background: violet;
 }
 
 body {
@@ -44,9 +53,28 @@ body {
 .menu:after {
   content: "]";
 }
+ */
 
 
-.menu > li + li:before {
-  content: "|";
-  padding-right: 0.3em;
-} */
+ .menu > li {
+  margin: 5px;
+}
+
+ .menu > li > a {
+  color: slategray;
+  font-size: 0.9em;
+}
+
+.logo-tonial {
+  margin: 10px;
+  width: 12%;
+}
+
+.page-title {
+  margin-top: 15px;
+  font-size: 0.9em;
+}
+
+.form-cliente {
+  padding-bottom: 15px;
+}

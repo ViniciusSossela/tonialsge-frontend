@@ -16,21 +16,19 @@
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
-  <div class="container">
+  <div class="master-page">
       
       <div class="row full-height">
         <div class="col-12">
-          <p>
-              Tonial
-          </p>
-            
-            Tonial
-            Tonial
+          <img class="logo-tonial" src="img/logo-tonial.png" alt="Tonial Mudas">
         </div>
         <div class="col-2 div-menu">
             <ul class="menu">
-                <li><a href="#!/view1">view1</a></li>
-                <li><a href="#!/view2">view2</a></li>
+                <li><a href="#!/cliente">Cliente</a></li>
+                <li><a href="#!/produto">Produto</a></li>
+                <li><a href="#!/rota">Rota</a></li>
+                <li><a href="#!/rota">Tabela de Preços</a></li>
+                <li><a href="#!/rota">Pedido</a></li>
               </ul>
         </div>
         <div class="col-10 view-content">
@@ -54,9 +52,10 @@
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/jquery/dist/jquery.slim.min.js"></script>
   <script src="app.js"></script>
-  <script src="view1/view1.js"></script>
-  <script src="view1/view1.service.js"></script>
-  <script src="view2/view2.js"></script>
+  <script src="ui/cliente/controller.js"></script>
+  <script src="ui/cliente/service.js"></script>
+  <script src="ui/produto/controller.js"></script>
+  <script src="ui/rota/controller.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>

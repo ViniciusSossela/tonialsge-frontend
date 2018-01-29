@@ -1,0 +1,62 @@
+<!-- <p>This is the partial for view 2.</p>
+<p>
+  Showing of 'interpolate' filter: {{ 'Current version is v%VERSION%.' | interpolate }}
+</p> -->
+<p class="page-title">Produto</p>
+<form class="form-produto">
+  <div class="form-group">
+    <label for="productNameInput">Nome do Produto</label>
+    <input type="text" ng-model="companyName" class="form-control" id="productNameInput" aria-describedby="nomeProdutoAjuda"
+      placeholder="Nome do Produto">
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tabela de Preço</th>
+        <th scope="col">Valor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Tabela RS/Sul</td>
+        <td>
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Tabela RS/Norte</td>
+        <td>
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Tabela SP/Norte</td>
+        <td>
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button type="button" ng-click="reset()" class="btn btn-primary">Submit</button>
+</form>
