@@ -6,6 +6,8 @@ angular.module('myApp', [
   'myApp.cliente',
   'myApp.produto',
   'myApp.rota',
+  'myApp.tabelapreco',
+  'myApp.pedido',
   'serviceUm',
   'myApp.version'
 ]).
