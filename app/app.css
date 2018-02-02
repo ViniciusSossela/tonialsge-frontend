@@ -79,51 +79,86 @@ body {
   padding-bottom: 15px;
 }
 
+.seta-esquerda {
+  content: "";
 
+  vertical-align: middle;
 
+  width: 0; 
+  height: 0; 
+  position: absolute;
+  right: 0px;
+    top: 0;
+  float: right;
 
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent; 
+  border-right: 30px solid blue; 
+}
 
+.seta-cima {
+  content: "";
 
+  vertical-align: middle;
+  top: 30px;
+  right: 0px;
 
+  width: 0; 
+  height: 0; 
+  float: right;
 
+  position: absolute;
 
+  border-left: 30px solid transparent;
+  border-right:30px solid transparent;
+  border-bottom: 30px solid black;
+}
 
+.seta-baixo {
+  content: "";
+  position: absolute;
+  vertical-align: middle;
 
-.tabsdemoDynamicTabs md-content {
-  background-color: transparent !important; }
-  .tabsdemoDynamicTabs md-content md-tabs {
-    border: 1px solid #e1e1e1; }
-    .tabsdemoDynamicTabs md-content md-tabs md-tab-content {
-      background: #f6f6f6; }
-    .tabsdemoDynamicTabs md-content md-tabs md-tabs-wrapper {
-      background: white; }
-  .tabsdemoDynamicTabs md-content h1:first-child {
-    margin-top: 0; }
+  width: 0; 
+  height: 0; 
+  float: right;
 
-.tabsdemoDynamicTabs md-input-container {
-  padding-bottom: 0; }
+  right: 0;
+  top: 0;
 
-.tabsdemoDynamicTabs .remove-tab {
-  margin-bottom: 40px; }
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 30px solid #f00;
+}
 
-.tabsdemoDynamicTabs .demo-tab > div > div {
-  padding: 25px;
-  box-sizing: border-box; }
+.default-label {
+  font-size: 11px;
+  float: right;
+  margin-right: 80px;
+  margin-top: 17px;
+}
 
-.tabsdemoDynamicTabs .edit-form input {
-  width: 100%; }
+.default-label-nav {
+  font-size: 10px;
+  margin-right: 10px;
+  position: absolute;
+}
 
-.tabsdemoDynamicTabs md-tabs {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+.nav-cliente {
+  margin-left: 50px;
+}
+.nav-produto {
+  margin-left: 120px;
+}
+.nav-pedido {
+  margin-left: 190px;
+}
 
-.tabsdemoDynamicTabs md-tab[disabled] {
-  opacity: 0.5; }
+.font-bold {
+  font-weight: bold;
+}
 
-.tabsdemoDynamicTabs label {
-  text-align: left; }
-
-.tabsdemoDynamicTabs .long > input {
-  width: 264px; }
-
-.tabsdemoDynamicTabs .md-button.add-tab {
-  transform: translateY(5px); }
+.cliente-ammount {
+  position: absolute;
+  top: 10px;
+}
