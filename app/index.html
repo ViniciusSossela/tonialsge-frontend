@@ -20,7 +20,7 @@
   <div class="master-page">
       
       <div class="row full-height">
-        <div class="col-12">
+        <div id="toolbar" permission class="col-12">
           <img class="logo-tonial" src="img/logo-tonial.png" alt="Tonial Mudas">
 
           <label class="default-label-nav nav-cliente">Clientes</label>
@@ -37,7 +37,7 @@
           <div class="seta-cima"></div>
           <div class="seta-baixo"></div>
         </div>
-        <div class="col-2 div-menu">
+        <div id="side-menu" permission class="col-2 div-menu">
             <ul class="menu">
                 <li><a href="#!/cliente">Cliente</a></li>
                 <li><a href="#!/produto">Produto</a></li>
@@ -46,7 +46,7 @@
                 <li><a href="#!/pedido">Pedido</a></li>
               </ul>
         </div>
-        <div class="col-10 view-content">
+        <div id="ng-view" class="col-10 view-content">
             <div ng-view></div>
         </div>
       </div>
@@ -75,7 +75,9 @@
   <script src="ui/rota/controller.js"></script>
   <script src="ui/tabelapreco/controller.js"></script>
   <script src="ui/pedido/controller.js"></script>
+  <script src="ui/login/controller.js"></script>
   <script src="components/version/version.js"></script>
+  <script src="components/permission-directive.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>

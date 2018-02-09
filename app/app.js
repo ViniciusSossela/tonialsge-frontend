@@ -6,26 +6,30 @@ angular.module('myApp', [
   'myApp.cliente',
   'myApp.produto',
   'myApp.rota',
+  'myApp.login',
   'myApp.tabelapreco',
   'myApp.pedido',
   'myApp.AuthService',
   'serviceUm',
   'myApp.version'
 ]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  $locationProvider.hashPrefix('!');
+  config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+    $locationProvider.hashPrefix('!');
 
-  $routeProvider.otherwise({redirectTo: '/cliente'});
-}]).
-run(['$rootScope', '$location', 'AuthService', function ($rootScope, $location, AuthService) {
-  // Auth.init();
-  AuthService.login();
-   
-  $rootScope.$on('$routeChangeStart', function (event, next) {
-    // alert('routeChangeStart')
-      if (!AuthService.isLoggedIn()){
-          event.preventDefault();
-          $location.path("/rota");
+    $routeProvider.otherwise({ redirectTo: '/login' });
+  }]).
+  run(['$rootScope', '$location', 'AuthService', function ($rootScope, $location, AuthService) {
+
+    $rootScope.$on('$routeChangeStart', function (event, next) {
+      // alert('routeChangeStart')
+      if (!AuthService.isLoggedIn()) {
+        // alert('sem usuario logado')
+        // event.preventDefault();
+        $location.path("/login");
+      } else {
+        $('#ng-view').addClass('view-content')
+        $('#side-menu').show()
+        $('#toolbar').show()
       }
-  });
-}]);
+    });
+  }]);

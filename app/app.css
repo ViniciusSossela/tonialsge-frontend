@@ -186,3 +186,9 @@ a {
 .default-margin {
   margin: 10px;
 }
+
+.div-centered {
+  margin-right: 0px;
+  margin-left: 0px;
+  display: table;
+}
