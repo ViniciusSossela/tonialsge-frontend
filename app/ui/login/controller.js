@@ -17,15 +17,22 @@ angular.module('myApp.login', ['ngRoute'])
             password: ""
         };
 
+        class LoginCallback {
+            constructor() {
+            }
+        
+            onSuccess(usuario) {  
+                alert(usuario.password);
+                $location.path("/cliente");
+            }
+        }
         // function to submit the form after all validation has occurred            
         $scope.submitForm = function (isValid) {
 
             // check to make sure the form is completely valid
             if (isValid) {
-                AuthService.login();
-                $location.path("/cliente");
-                alert($scope.user.username + " - " + $scope.user.password);
-                alert('our form is amazing');
+                AuthService.login($scope.user, new LoginCallback());
+                
             }
 
         };

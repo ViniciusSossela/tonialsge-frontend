@@ -2,19 +2,35 @@
 'use strict';
 
 angular.module('myApp.AuthService', ['ngStorage'])
-.service('AuthService', function($sessionStorage) {
-    
-    this.login = function () {
-        $sessionStorage.user = true;
-    }
+    .service('AuthService', function ($http, $sessionStorage) {
+
+        this.login = function (usuario, loginCallback) {
+
+            $http.post('http://localhost:8080/login', usuario).
+                then(
+                function (response) {
+                    if (response.status == 200) {
+                        $sessionStorage.user = response.data
+                        loginCallback.onSuccess(response.data)
+                    } else {
+                        alert('usuario inválido')
+                    }
+                },
+                function (response) {
+                    alert('falha')
+                });
 
 
-    this.isLoggedIn = function () {
-        return $sessionStorage.user != null;
-    };
 
-});
-  
+        }
+
+
+        this.isLoggedIn = function () {
+            return $sessionStorage.user != null;
+        };
+
+    });
+
 
 
 

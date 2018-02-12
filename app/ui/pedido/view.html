@@ -1,84 +1,217 @@
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="rotaSelect">Rotas</label>
+                    <select class="form-control" id="rotaSelect">
+                        <option>Rota RS/Sul</option>
+                        <option>Rota RS/Norte</option>
+                        <option>Rota SP/Norte</option>
+                        <option>Rota SP/Nordeste</option>
+                        <option>Rota PR/Norte</option>
+                    </select>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="rotaSelect">Rotas</label>
-                        <select class="form-control" id="rotaSelect">
-                            <option>Rota RS/Sul</option>
-                            <option>Rota RS/Norte</option>
-                            <option>Rota SP/Norte</option>
-                            <option>Rota SP/Nordeste</option>
-                            <option>Rota PR/Norte</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" ng-click="choosenRota()" class="btn btn-primary">Save changes</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" ng-click="choosenRota()" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
-    
-    <ul class="nav nav-tabs nav-pedido-tabs">
-        <li class="nav-item" ng-repeat="rota in rotas">
-            <a class="nav-link active show" href="#{{rota.name}}" ng-click="tabClicked($event)" data-toggle="tab">{{rota.name}}</a>
-        </li>
-        <li>
-            <a style="display: block; padding: 0.5rem 1rem;" href="#addRota" ng-click="tabNovaRotaClicked($event)" data-toggle="tab">Nova Aba</a>
-        </li>
-    </ul>
-    
-    <div class="tab-content">
-        <div id="{{rota.name}}" class="tab-pane active show" ng-repeat="rota in rotas">
-            <form class="form-pedido-{{rota.name}}">
-                <div class="form-group">
-                    <label for="clienteSelect">Cliente</label>
-                    <select ng-model="rota.selectedCliente" class="form-control" id="clienteSelect">
-                        <option ng-repeat="cliente in rota.clientes" value="{{cliente.id}}">{{cliente.name}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="produtoSelect">Produto</label>
-                    <select ng-model="rota.selectedProduto" class="form-control" id="produtoSelect">
-                        <option ng-repeat="produto in rota.produtos" value="{{produto.id}}">{{produto.name}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="amountInput">Quantidade</label>
-                    <input type="number" max="99" required min="0" ng-model="rota.quantidade" class="form-control" id="amountInput" aria-describedby="QauntidadeAjuda"
-                        placeholder="Quantidade">
-                </div>
-                <button ng-click="addProduto(rota.name)" class="btn btn-primary default-margin float-right">Adicionar</button>
-                <button type="submit" class="btn btn-primary default-margin float-right">Imprimir Rota</button>
-                <button type="submit" class="btn btn-primary default-margin float-right">Finalizar Rota</button>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Cliente</th>
-                            <th scope="col">Produto</th>
-                            <th scope="col">Quantidade</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-    
-                        <tr ng-repeat="pedido in rota.pedidos">
-                            <td>{{pedido.cliente}}</td>
-                            <td>{{pedido.produto}}</td>
-                            <td>{{pedido.quantidade}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-    
-                
-            </form>
+</div>
+
+
+<!-- Modal Cliente-->
+<div class="modal fade" id="modalNovoCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Novo Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-cliente">
+                    <div class="form-group">
+                        <label for="companyNameInput">Nome da Empresa</label>
+                        <input type="text" ng-model="novoCliente.nome" class="form-control" id="companyNameInput" aria-describedby="nomeEmpresaAjuda"
+                            placeholder="Nome da Empresa">
+                    </div>
+                    <div class="form-group">
+                        <label for="tabelaPrecoSelect">Tabela de preço</label>
+                        <select class="form-control" id="tabelaPrecoSelect">
+                            <option>Tabela RS/Sul</option>
+                            <option>Tabela RS/Norte</option>
+                            <option>Tabela SP/Norte</option>
+                            <option>Tabela SP/Nordeste</option>
+                            <option>Tabela PR/Norte</option>
+                        </select>
+                    </div>
+
+                    <button type="button" ng-click="reset()" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" ng-click="saveNovoCliente()" class="btn btn-primary">Salvar</button>
+            </div>
         </div>
     </div>
+</div>
+
+
+<!-- Modal Produto-->
+<div class="modal fade" id="modalNovoProduto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Novo Produto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-produto">
+                    <div class="form-group">
+                        <label for="productNameInput">Nome do Produto</label>
+                        <input type="text" ng-model="novoProduto.nome" class="form-control" id="productNameInput" aria-describedby="nomeProdutoAjuda"
+                            placeholder="Nome do Produto">
+                    </div>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Tabela de Preço</th>
+                                <th scope="col">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="tabelaPreco in novoProduto.tabelasPreco">
+                                <th scope="row">{{tabelaPreco.id}}</th>
+                                <td>{{tabelaPreco.nomeTabelaPreco}}</td>
+                                <td>
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
+                                        </div>
+                                        <input type="text" ng-model="tabelaPreco.preco" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" ng-click="saveNovoProduto()" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul class="nav nav-tabs nav-pedido-tabs">
+    <li class="nav-item" ng-repeat="rota in rotas">
+        <a class="nav-link active show" href="#{{rota.name}}" ng-click="tabClicked($event)" data-toggle="tab">{{rota.name}}</a>
+    </li>
+    <li>
+        <a style="display: block; padding: 0.5rem 1rem;" href="#addRota" ng-click="tabNovaRotaClicked($event)" data-toggle="tab">Nova Aba</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div id="{{rota.name}}" class="tab-pane active show" ng-repeat="rota in rotas">
+        <form class="form-pedido-{{rota.name}}">
+
+            <div class="row">
+                <div class="col-10">
+                    <div class="form-group">
+                        <label for="clienteSelect">Cliente</label>
+                        <select ng-model="rota.selectedCliente" class="form-control" id="clienteSelect">
+                            <option ng-repeat="cliente in rota.clientes" value="{{cliente.id}}">{{cliente.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <label class="transparent" for="novoCliente">.</label>
+                        <button id="novoCliente" type="button" ng-click="novoClienteClicked()" class="form-control btn btn-link">Novo Cliente</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-10">
+                    <div class="form-group">
+                        <label for="produtoSelect">Produto</label>
+                        <select ng-model="rota.selectedProduto" class="form-control" id="produtoSelect">
+                            <option ng-repeat="produto in rota.produtos" value="{{produto.id}}">{{produto.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <label class="transparent" for="novoProduto">.</label>
+                        <button id="novoProduto" type="button" ng-click="novoProdutoClicked()" class="form-control btn btn-link">Novo Produto</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="amountInput">Quantidade</label>
+                        <input type="number" max="99" required min="0" ng-model="rota.quantidade" class="form-control" id="amountInput" aria-describedby="QauntidadeAjuda"
+                            placeholder="Quantidade">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="priceInput">Preço unitário</label>
+                        <input type="number" max="99" required min="0" ng-model="rota.preco" class="form-control" id="priceInput" aria-describedby="PrecoAjuda"
+                            placeholder="Preço">
+                    </div>
+                </div>
+            </div>
+
+
+            <button ng-click="addProduto(rota.name)" class="btn btn-primary default-margin float-right">Adicionar</button>
+            <button type="submit" ng-click="imprimirRota()" class="btn btn-primary default-margin float-right">Imprimir Rota</button>
+            <button type="submit" class="btn btn-primary default-margin float-right">Finalizar Rota</button>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Produto</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr ng-repeat="pedido in rota.pedidos">
+                        <td>{{pedido.cliente}}</td>
+                        <td>{{pedido.produto}}</td>
+                        <td>{{pedido.quantidade}}</td>
+                        <td>{{pedido.precoTotal}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </form>
+    </div>
+</div>

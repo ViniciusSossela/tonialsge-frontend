@@ -192,3 +192,7 @@ a {
   margin-left: 0px;
   display: table;
 }
+
+.transparent {
+  opacity: 0;
+}
