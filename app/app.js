@@ -10,6 +10,10 @@ angular.module('myApp', [
   'myApp.tabelapreco',
   'myApp.pedido',
   'myApp.AuthService',
+  'myApp.ClienteService',
+  'myApp.ProdutoService',
+  'myApp.RotaService',
+  'myApp.TabelaPrecoService',
   'serviceUm',
   'myApp.version'
 ]).

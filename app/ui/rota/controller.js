@@ -9,8 +9,20 @@ angular.module('myApp.rota', ['ngRoute'])
     });
   }])
 
-  .controller('RotaCtrl', ['$scope', '$http', 'hexafy', function ($scope, $http, hexafy) {
+  .controller('RotaCtrl', ['$scope', '$http', 'hexafy', 'RotaService', function ($scope, $http, hexafy, RotaService) {
 
-    //alert(hexafy.myFunc())
+
+    class RotaCallback {
+      constructor() {
+      }
+
+      onSuccess(rota) {
+        alert(rota);
+      }
+    }
+
+    $scope.salvarRota = function () {
+      RotaService.cadastrarRota('rota 1', new RotaCallback())
+    }
 
   }]);

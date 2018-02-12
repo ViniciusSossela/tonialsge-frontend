@@ -6,15 +6,15 @@
 <form class="form-produto">
   <div class="form-group">
     <label for="rotaNameInput">Nome do Rota</label>
-    <input type="text" ng-model="rotaName" class="form-control" id="rotaNameInput" aria-describedby="rotaAjuda"
+    <input type="text" ng-model="rota.nome" class="form-control" id="rotaNameInput" aria-describedby="rotaAjuda"
       placeholder="Nome do Rota">
   </div>
 
 
   <div class="form-group">
     <label for="descricaoTextarea">Descrição</label>
-    <textarea class="form-control" id="descricaoTextarea" rows="3"></textarea>
+    <textarea class="form-control" ng-model="rota.descricao" id="descricaoTextarea" rows="3"></textarea>
   </div>
 
-  <button type="button" ng-click="reset()" class="btn btn-primary">Submit</button>
+  <button type="button" ng-click="salvarRota()" class="btn btn-primary">Submit</button>
 </form>
