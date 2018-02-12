@@ -1,47 +1,74 @@
 <p class="page-title">Cliente</p>
 <form class="form-cliente">
-    <div class="form-group">
-        <label for="companyNameInput">Nome da Empresa</label>
-        <input type="text" ng-model="cliente.companyName" class="form-control" id="companyNameInput" aria-describedby="nomeEmpresaAjuda"
-            placeholder="Nome da Empresa">
+
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="companyNameInput">Nome da Empresa</label>
+                <input type="text" ng-model="cliente.companyName" class="form-control" id="companyNameInput" aria-describedby="nomeEmpresaAjuda"
+                    placeholder="Nome da Empresa">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="emailInput">Email</label>
+                <input type="email" ng-model="cliente.email" class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">Utilize a formatação correta de um e-mail.</small>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="cityInput">Cidade</label>
-        <input type="text" ng-model="cliente.cidade" class="form-control" id="cityInput" aria-describedby="cidadeAjuda" placeholder="Cidade da Empresa">
+
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="rotaSelect">Rotas</label>
+                <select ng-model="cliente.rota" class="form-control" id="rotaSelect">
+                    <option>RS/Sul</option>
+                    <option>RS/Norte</option>
+                    <option>SP/Norte</option>
+                    <option>SP/Nordeste</option>
+                    <option>PR/Norte</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="tabelaPrecoSelect">Tabela de preço</label>
+                <select ng-model="cliente.tabelaPreco" class="form-control" id="tabelaPrecoSelect">
+                    <option>Tabela RS/Sul</option>
+                    <option>Tabela RS/Norte</option>
+                    <option>Tabela SP/Norte</option>
+                    <option>Tabela SP/Nordeste</option>
+                    <option>Tabela PR/Norte</option>
+                </select>
+            </div>
+
+        </div>
     </div>
-    <div class="form-group">
-        <label for="regionInput">Estado</label>
-        <input type="text" ng-model="cliente.estado" class="form-control" id="regionInput" aria-describedby="estadoAjuda" placeholder="Estado da Empresa">
+
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="cityInput">Cidade</label>
+                <input type="text" ng-model="cliente.cidade" class="form-control" id="cityInput" aria-describedby="cidadeAjuda" placeholder="Cidade da Empresa">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="regionInput">Estado</label>
+                <input type="text" ng-model="cliente.estado" class="form-control" id="regionInput" aria-describedby="estadoAjuda" placeholder="Estado da Empresa">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="addressInput">Endereço</label>
+                <input type="text" ng-model="cliente.endereco" class="form-control" id="addressInput" aria-describedby="endereçoAjuda" placeholder="Endereço da Empresa">
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="addressInput">Endereço</label>
-        <input type="text" ng-model="cliente.endereco" class="form-control" id="addressInput" aria-describedby="endereçoAjuda" placeholder="Endereço da Empresa">
-    </div>
-    <div class="form-group">
-        <label for="emailInput">Email</label>
-        <input type="email" ng-model="cliente.email" class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">Utilize a formatação correta de um e-mail.</small>
-    </div>
-    <div class="form-group">
-        <label for="rotaSelect">Rotas</label>
-        <select ng-model="cliente.rota" class="form-control" id="rotaSelect">
-            <option>RS/Sul</option>
-            <option>RS/Norte</option>
-            <option>SP/Norte</option>
-            <option>SP/Nordeste</option>
-            <option>PR/Norte</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="tabelaPrecoSelect">Tabela de preço</label>
-        <select ng-model="cliente.tabelaPreco" class="form-control" id="tabelaPrecoSelect">
-            <option>Tabela RS/Sul</option>
-            <option>Tabela RS/Norte</option>
-            <option>Tabela SP/Norte</option>
-            <option>Tabela SP/Nordeste</option>
-            <option>Tabela PR/Norte</option>
-        </select>
-    </div>
-   
+
     <button type="button" ng-click="cadastrarCliente()" class="btn btn-primary">Submit</button>
 </form>
