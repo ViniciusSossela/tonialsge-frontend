@@ -9,38 +9,57 @@ angular.module('myApp.produto', ['ngRoute'])
     });
   }])
 
-  .controller('ProdutoCtrl', ['$scope', 'ProdutoService', function ($scope, ProdutoService) {
+  .controller('ProdutoCtrl', ['$scope', 'ProdutoService', 'TabelaPrecoService', function ($scope, ProdutoService, TabelaPrecoService) {
 
-    $scope.tabelasPreco = [
-      {
-        id: 1,
-        nomeTabelaPreco: 'Tabela RS/Sul',
-        preco: 0,
-      },
-      {
-        id: 2,
-        nomeTabelaPreco: 'Tabela RS/Norte',
-        preco: 0,
-      },
-      {
-        id: 3,
-        nomeTabelaPreco: 'Tabela SP/Norte',
-        preco: 0,
-      }
-    ]
-
+    $scope.tabelasPreco = []
+    $scope.produto = {
+      nome: "",
+      tabelaPrecoProduto: []
+    }
 
     class ProdutoCallback {
       constructor() {
       }
 
       onSuccess(produto) {
-        alert(produto);
+        alert("Produto " + produto.nome + " cadastrado com sucesso.");
       }
     }
 
-    $scope.salvarProduto = function() {
-      ProdutoService.cadastrarProduto('prod 1', new ProdutoCallback())
+    class TabelaPrecoCallback {
+      constructor() {
+      }
+
+      onSuccess(tabelas) {
+
+        var tabelasPrecoViewModel = tabelas.map(function (tabelaPreco) {
+          return {
+            id: tabelaPreco.id,
+            nome: tabelaPreco.nome,
+            preco: 0
+          }
+        });
+        $scope.tabelasPreco = tabelasPrecoViewModel;
+
+      }
+    }
+
+    loadTabelasPreco();
+
+    function loadTabelasPreco() {
+      TabelaPrecoService.tabelaPrecoAll(new TabelaPrecoCallback());
+    }
+
+    $scope.salvarProduto = function () {
+      angular.forEach($scope.tabelasPreco, function (tabelaPrecoVM, key) {
+        $scope.produto.tabelaPrecoProduto.push({
+          preco: tabelaPrecoVM.preco,
+          tabelaPreco: {
+            id: tabelaPrecoVM.id
+          }
+        })
+      });
+      ProdutoService.cadastrarProduto($scope.produto, new ProdutoCallback())
     }
 
   }]);

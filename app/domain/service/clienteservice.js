@@ -8,15 +8,15 @@ angular.module('myApp.ClienteService', ['ngStorage'])
 
             $http.post(API.clienteAddURL, cliente)
                 .then(
-                function (response) {
-                    if (response.status == 200) {
-                        clienteCallback.onSuccess(response.data)
-                    } else {
-                        alert('cliente inválido')
-                    }
-                },
-                function (response) {
-                    alert('falha')
-                });
+                    function (response) {
+                        if (response.status == 200) {
+                            clienteCallback.onSuccess(response.data)
+                        } else {
+                            alert('cliente inválido')
+                        }
+                    },
+                    function (response) {
+                        alert('falha')
+                    });
         }
     }]);

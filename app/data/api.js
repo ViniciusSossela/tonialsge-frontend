@@ -17,4 +17,8 @@ angular.module('myApp.API', [])
         this.tabelaPrecoAllUrl = server + "tabelapreco/all";
         this.tabelaPrecoAddUrl = server + "tabelapreco/";
         
+        this.produtoAddURL = server + "produto/";
+        this.produtoAllURL = server + "produto/all";
+
+
     });
