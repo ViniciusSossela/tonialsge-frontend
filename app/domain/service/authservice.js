@@ -2,11 +2,11 @@
 'use strict';
 
 angular.module('myApp.AuthService', ['ngStorage'])
-    .service('AuthService', function ($http, $sessionStorage) {
+    .service('AuthService', ['$http', '$sessionStorage', 'API', function ($http, $sessionStorage, API) {
 
         this.login = function (usuario, loginCallback) {
 
-            $http.post('http://localhost:8080/login', usuario).
+            $http.post(API.loginURL, usuario).
                 then(
                 function (response) {
                     if (response.status == 200) {
@@ -29,7 +29,7 @@ angular.module('myApp.AuthService', ['ngStorage'])
             return $sessionStorage.user != null;
         };
 
-    });
+    }]);
 
 
 

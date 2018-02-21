@@ -1,13 +1,17 @@
 <p class="page-title">Cliente</p>
-<form class="form-cliente">
-
-
+<form ng-submit="cadastrarCliente()" class="form-cliente">
     <div class="row">
         <div class="col">
             <div class="form-group">
                 <label for="companyNameInput">Nome da Empresa</label>
-                <input type="text" ng-model="cliente.companyName" class="form-control" id="companyNameInput" aria-describedby="nomeEmpresaAjuda"
+                <input required type="text" ng-model="cliente.nome" class="form-control" id="companyNameInput" aria-describedby="nomeEmpresaAjuda"
                     placeholder="Nome da Empresa">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="cpfcnpjInput">CPF ou CPNJ responsável</label>
+                <input required type="number" maxlength="11" ng-model="cliente.cpfcnpj" class="form-control" id="cpfcnpjInput" placeholder="Cpf ou Cnpj">
             </div>
         </div>
         <div class="col">
@@ -24,24 +28,18 @@
         <div class="col">
             <div class="form-group">
                 <label for="rotaSelect">Rotas</label>
-                <select ng-model="cliente.rota" class="form-control" id="rotaSelect">
-                    <option>RS/Sul</option>
-                    <option>RS/Norte</option>
-                    <option>SP/Norte</option>
-                    <option>SP/Nordeste</option>
-                    <option>PR/Norte</option>
+                <select required ng-model="cliente.rotaSelecionada" class="form-control" id="rotaSelect">
+                    <option value="">Selecione uma rota</option>
+                    <option ng-repeat="rota in rotas" ng-value="rota.id">{{rota.nome}}</option>
                 </select>
             </div>
         </div>
         <div class="col">
             <div class="form-group">
                 <label for="tabelaPrecoSelect">Tabela de preço</label>
-                <select ng-model="cliente.tabelaPreco" class="form-control" id="tabelaPrecoSelect">
-                    <option>Tabela RS/Sul</option>
-                    <option>Tabela RS/Norte</option>
-                    <option>Tabela SP/Norte</option>
-                    <option>Tabela SP/Nordeste</option>
-                    <option>Tabela PR/Norte</option>
+                <select required ng-model="cliente.tabelaPrecoSelecionada" class="form-control" id="tabelaPrecoSelect">
+                        <option value="">Selecione uma tabela de preço</option>
+                    <option ng-repeat="tabelaPreco in tabelasPreco" ng-value="tabelaPreco.id">{{tabelaPreco.nome}}</option>
                 </select>
             </div>
 
@@ -53,7 +51,7 @@
         <div class="col">
             <div class="form-group">
                 <label for="cityInput">Cidade</label>
-                <input type="text" ng-model="cliente.cidade" class="form-control" id="cityInput" aria-describedby="cidadeAjuda" placeholder="Cidade da Empresa">
+                <input required type="text" ng-model="cliente.cidade" class="form-control" id="cityInput" aria-describedby="cidadeAjuda" placeholder="Cidade da Empresa">
             </div>
         </div>
         <div class="col">
@@ -70,5 +68,5 @@
         </div>
     </div>
 
-    <button type="button" ng-click="cadastrarCliente()" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Salvar</button>
 </form>

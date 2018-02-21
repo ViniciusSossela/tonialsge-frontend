@@ -3,10 +3,10 @@
   Showing of 'interpolate' filter: {{ 'Current version is v%VERSION%.' | interpolate }}
 </p> -->
 <p class="page-title">Tabelas de preço</p>
-<form class="form-produto">
+<form ng-submit="salvarTabelaPreco()" class="form-produto">
   <div class="form-group">
     <label for="tabelaNameInput">Nome da Tabela</label>
-    <input type="text" ng-model="tabelaPreco.nome" class="form-control" id="tabelaNameInput" aria-describedby="tabelaAjuda"
+    <input required type="text" ng-model="tabelaPreco.nome" class="form-control" id="tabelaNameInput" aria-describedby="tabelaAjuda"
       placeholder="Nome da Tabela">
   </div>
 
@@ -16,5 +16,6 @@
     <textarea class="form-control" ng-model="tabelaPreco.descricao" id="descricaoTextarea" rows="3"></textarea>
   </div>
 
-  <button type="button" ng-click="salvarTabelaPreco()" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Submit</button>
+
 </form>

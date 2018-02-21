@@ -2,23 +2,21 @@
 'use strict';
 
 angular.module('myApp.ClienteService', ['ngStorage'])
-    .service('ClienteService', function ($http, $sessionStorage) {
+    .service('ClienteService', ['$http', '$sessionStorage', 'API', function ($http, $sessionStorage, API) {
 
         this.cadastrarCliente = function (cliente, clienteCallback) {
 
-            clienteCallback.onSuccess('success')
-            // $http.post('http://localhost:8080/cliente/', usuario).
-            //     then(
-            //     function (response) {
-            //         if (response.status == 200) {
-            //             $sessionStorage.user = response.data
-            //             loginCallback.onSuccess(response.data)
-            //         } else {
-            //             alert('usuario inválido')
-            //         }
-            //     },
-            //     function (response) {
-            //         alert('falha')
-            //     });
+            $http.post(API.clienteAddURL, cliente)
+                .then(
+                function (response) {
+                    if (response.status == 200) {
+                        clienteCallback.onSuccess(response.data)
+                    } else {
+                        alert('cliente inválido')
+                    }
+                },
+                function (response) {
+                    alert('falha')
+                });
         }
-    });
+    }]);

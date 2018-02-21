@@ -9,6 +9,7 @@ angular.module('myApp', [
   'myApp.login',
   'myApp.tabelapreco',
   'myApp.pedido',
+  'myApp.API',
   'myApp.AuthService',
   'myApp.ClienteService',
   'myApp.ProdutoService',

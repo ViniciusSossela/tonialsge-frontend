@@ -9,16 +9,22 @@ angular.module('myApp.cliente', ['ngRoute'])
     });
   }])
 
-  .controller('ClienteCtrl', ['$scope', '$http', 'hexafy', 'ClienteService', function ($scope, $http, hexafy, ClienteService) {
+  .controller('ClienteCtrl', ['$scope', '$http', 'hexafy', 'ClienteService', 'RotaService', 'TabelaPrecoService', function ($scope, $http, hexafy, ClienteService, RotaService, TabelaPrecoService) {
     $scope.cliente = {
-      companyName: "",
+      nome: "",
+      cpfcnpj: "",
       cidade: "",
       estado: "",
       endereco: "",
       email: "",
-      rota: "",
-      tabelaPreco: ""
+      rota: {},
+      tabelaPreco: {},
+      tabelaPrecoSelecionada: "",
+      rotaSelecionada: "",
     }
+
+    $scope.rotas = [];
+    $scope.tabelasPreco = [];
 
 
     class ClienteCallback {
@@ -29,17 +35,43 @@ angular.module('myApp.cliente', ['ngRoute'])
         alert(cliente);
       }
     }
+    class RotaCallback {
+      constructor() {
+      }
 
-    // $http.get('http://52.207.215.106:8080/greeting', $scope.cliente).
-    //   then(function (response) {
-    //     $scope.greeting = response.data;
-    //     alert($scope.greeting);
-    //   });
+      onSuccess(rotas) {
+        $scope.rotas = rotas;
+      }
+    }
+    class TabelaPrecoCallback {
+      constructor() {
+      }
+
+      onSuccess(tabelas) {
+        $scope.tabelasPreco = tabelas;
+      }
+    }
+
+    loadRotas();
+    loadTabelasPreco();
+
+    function loadRotas() {
+      RotaService.rotaAll(new RotaCallback());
+    }
+
+    function loadTabelasPreco() {
+      TabelaPrecoService.tabelaPrecoAll(new TabelaPrecoCallback());
+    }
 
     $scope.cadastrarCliente = function () {
+      $scope.cliente.rota = {
+        id: $scope.cliente.rotaSelecionada
+      };
+      $scope.cliente.tabelaPreco = {
+        id: $scope.cliente.tabelaPrecoSelecionada
+      };
+      
       ClienteService.cadastrarCliente($scope.cliente, new ClienteCallback());
     };
-
-    //alert(hexafy.myFunc())
 
   }]);

@@ -11,18 +11,22 @@ angular.module('myApp.rota', ['ngRoute'])
 
   .controller('RotaCtrl', ['$scope', '$http', 'hexafy', 'RotaService', function ($scope, $http, hexafy, RotaService) {
 
+    $scope.rota = {
+      nome: "",
+      descricao: ""
+    }
 
     class RotaCallback {
       constructor() {
       }
 
       onSuccess(rota) {
-        alert(rota);
+        alert("Rota: " + rota.nome + ", salva com sucesso");
       }
     }
 
     $scope.salvarRota = function () {
-      RotaService.cadastrarRota('rota 1', new RotaCallback())
+      RotaService.save($scope.rota, new RotaCallback())
     }
 
   }]);

@@ -2,23 +2,35 @@
 'use strict';
 
 angular.module('myApp.TabelaPrecoService', ['ngStorage'])
-    .service('TabelaPrecoService', function ($http, $sessionStorage) {
+    .service('TabelaPrecoService', ['$http', 'API', function ($http, API) {
 
-        this.cadastrarTabelaPreco = function (tabelaPreco, tabelaPrecoCallback) {
-
-            tabelaPrecoCallback.onSuccess('success' + tabelaPreco)
-            // $http.post('http://localhost:8080/cliente/', usuario).
-            //     then(
-            //     function (response) {
-            //         if (response.status == 200) {
-            //             $sessionStorage.user = response.data
-            //             loginCallback.onSuccess(response.data)
-            //         } else {
-            //             alert('usuario inválido')
-            //         }
-            //     },
-            //     function (response) {
-            //         alert('falha')
-            //     });
+        this.tabelaPrecoAll = function (tabelaPrecoCallback) {
+            $http.get(API.tabelaPrecoAllUrl)
+                .then(
+                    function (response) {
+                        if (response.status == 200) {
+                            tabelaPrecoCallback.onSuccess(response.data)
+                        } else {
+                            alert('Não foi possível carregar as tabelas de preço')
+                        }
+                    },
+                    function (response) {
+                        alert('falha')
+                    });
         }
-    });
+
+        this.save = function (tabelaPreco, tabelaPrecoCallback) {
+            $http.post(API.tabelaPrecoAddUrl, tabelaPreco)
+                .then(
+                    function (response) {
+                        if (response.status == 200) {
+                            tabelaPrecoCallback.onSuccess(response.tabelaPreco)
+                        } else {
+                            alert('Não foi possível carregar a rota')
+                        }
+                    },
+                    function (response) {
+                        alert('falha')
+                    });
+        }
+    }]);

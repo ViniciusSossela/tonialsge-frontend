@@ -11,6 +11,12 @@ angular.module('myApp.tabelapreco', ['ngRoute'])
 
   .controller('TabelaPrecoCtrl', ['$scope', '$http', 'hexafy', 'TabelaPrecoService', function ($scope, $http, hexafy, TabelaPrecoService) {
 
+    $scope.tabelaPreco = {
+      nome: "",
+      descricao: ""
+    }
+
+
     class TabelaPrecoCallback {
       constructor() {
       }
@@ -21,7 +27,7 @@ angular.module('myApp.tabelapreco', ['ngRoute'])
     }
 
     $scope.salvarTabelaPreco = function () {
-      TabelaPrecoService.cadastrarTabelaPreco('tabela preco 1', new TabelaPrecoCallback())
+      TabelaPrecoService.save($scope.tabelaPreco, new TabelaPrecoCallback())
     }
 
   }]);

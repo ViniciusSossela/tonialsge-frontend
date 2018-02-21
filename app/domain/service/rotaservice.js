@@ -2,23 +2,35 @@
 'use strict';
 
 angular.module('myApp.RotaService', ['ngStorage'])
-    .service('RotaService', function ($http, $sessionStorage) {
+    .service('RotaService', ['$http', '$sessionStorage', 'API', function ($http, $sessionStorage, API) {
 
-        this.cadastrarRota = function (rota, rotaCallback) {
-
-            rotaCallback.onSuccess('success' + rota)
-            // $http.post('http://localhost:8080/cliente/', usuario).
-            //     then(
-            //     function (response) {
-            //         if (response.status == 200) {
-            //             $sessionStorage.user = response.data
-            //             loginCallback.onSuccess(response.data)
-            //         } else {
-            //             alert('usuario inválido')
-            //         }
-            //     },
-            //     function (response) {
-            //         alert('falha')
-            //     });
+        this.rotaAll = function (rotaCallback) {
+            $http.get(API.rotaAllUrl).
+                then(
+                    function (response) {
+                        if (response.status == 200) {
+                            rotaCallback.onSuccess(response.data)
+                        } else {
+                            alert('Não foi possível carregar as rotas')
+                        }
+                    },
+                    function (response) {
+                        alert('falha')
+                    });
         }
-    });
+
+        this.save = function (rota, rotaCallback) {
+            $http.post(API.rotaAddUrl, rota)
+                .then(
+                    function (response) {
+                        if (response.status == 200) {
+                            rotaCallback.onSuccess(response.data)
+                        } else {
+                            alert('Não foi possível carregar a rota')
+                        }
+                    },
+                    function (response) {
+                        alert('falha')
+                    });
+        }
+    }]);
