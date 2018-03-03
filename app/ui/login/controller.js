@@ -22,7 +22,6 @@ angular.module('myApp.login', ['ngRoute'])
             }
         
             onSuccess(usuario) {  
-                alert(usuario.password);
                 $location.path("/cliente");
             }
         }

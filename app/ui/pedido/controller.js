@@ -9,12 +9,15 @@ angular.module('myApp.pedido', ['ngRoute'])
         });
     }])
 
-    .controller('PedidoCtrl', ['$scope', '$http', '$log', '$location', 'hexafy', function ($scope, $http, $log, $location, hexafy) {
+    .controller('PedidoCtrl', ['$scope', '$http', '$log', '$location', 'ProdutoService', 'ClienteService', 'RotaService', 'TabelaPrecoService', function ($scope, $http, $log, $location, ProdutoService, ClienteService, RotaService, TabelaPrecoService) {
 
         $('#myModal').modal('show')
 
         $scope.rotas = []
+        $scope.rotasList = []
         $scope.pedidos = []
+        var produtosList = [];
+        var clientesList = [];
 
         $scope.novoCliente = {
             id: 0,
@@ -25,70 +28,129 @@ angular.module('myApp.pedido', ['ngRoute'])
         $scope.novoProduto = {
             id: 0,
             nome: "",
-            tabelasPreco: [
-                {
-                    id: 1,
-                    nomeTabelaPreco: 'Tabela RS/Sul',
-                    preco: 0,
-                },
-                {
-                    id: 2,
-                    nomeTabelaPreco: 'Tabela RS/Norte',
-                    preco: 0,
-                },
-                {
-                    id: 3,
-                    nomeTabelaPreco: 'Tabela SP/Norte',
-                    preco: 0,
-                }
-            ]
+            tabelasPreco: []
         };
 
-        var produtosList = [
-            {
-                id: 0,
-                name: "Rucula"
-            },
-            {
-                id: 1,
-                name: "Tomate"
-            },
-            {
-                id: 2,
-                name: "Alface"
-            }];
+        class ProdutoLoadCallback {
+            constructor() {
+            }
 
-        var clientesList = [
-            {
-                id: 0,
-                name: "Cliente 0"
-            },
-            {
-                id: 1,
-                name: "Cliente 1"
-            },
-            {
-                id: 2,
-                name: "Cliente 2"
-            }];
+            onSuccess(produtos) {
+                produtosList = produtos;
+                var rotaInEdition = $scope.rotas.filter((rota) => rota.id === getRotaSelecionada())[0]
+                rotaInEdition.produtos = produtosList;
+            }
+        }
+
+        function loadProdutos() {
+            ProdutoService.findAll(new ProdutoLoadCallback());
+        }
 
 
+        class RotaCallback {
+            constructor() {
+            }
+
+            onSuccess(rotas) {
+                $scope.rotasList = rotas;
+            }
+        }
+
+        function loadRotas() {
+            RotaService.rotaAll(new RotaCallback())
+        }
+
+        loadRotas();
+
+        class TabelaPrecoCallback {
+            constructor() {
+            }
+
+            onSuccess(tabelasPreco) {
+                $scope.novoProduto.tabelasPreco = tabelasPreco;
+            }
+        }
+
+        class ClienteCallback {
+            constructor() {
+            }
+
+            onSuccess(clientesByRota) {
+                var rotaInEdition = $scope.rotas.filter((rota) => rota.id === clientesByRota[0].rota.id.toString())[0]
+                rotaInEdition.clientes = clientesByRota;
+            }
+        }
+
+        function loadClientesByRota(rotaId) {
+            ClienteService.findAllByRota(rotaId, new ClienteCallback())
+        }
+
+        $scope.salvarTabelaPreco = function () {
+            TabelaPrecoService.tabelaPrecoAll(new TabelaPrecoCallback())
+        }
 
         $scope.tabNovaRotaClicked = function ($event) {
             $('#myModal').modal('show')
             $event.preventDefault()
         }
 
+        $scope.updateSelectedProduto = function () {
+            loadPrecoFromTabela();
+        }
+
+        $scope.updateSelectedCliente = function () {
+            loadPrecoFromTabela();
+        }
+
+        function loadPrecoFromTabela() {
+            var rota = getRotaSelecionadaToEdition();
+            var tabelaPrecoClienteId = 0;
+            rota.preco = 0;
+            if (rota.selectedProduto != "" && rota.selectedCliente != "") {
+                angular.forEach(rota.clientes, function (cliente) {
+                    rota.selectedClienteNome = cliente.nome;
+                    if (cliente.id == rota.selectedCliente) {
+                        tabelaPrecoClienteId = cliente.tabelaPreco.id;
+                    }
+                });
+
+                if (tabelaPrecoClienteId != 0) {
+                    angular.forEach(rota.produtos, function (produto) {
+                        if (produto.id == rota.selectedProduto) {
+                            rota.selectedProdutoNome = produto.nome;
+                            produto.tabelaPrecoProduto.forEach(function (tabelaPrecoProduto) {
+                                if (tabelaPrecoProduto.tabelaPreco.id == tabelaPrecoClienteId) {
+                                    rota.preco = tabelaPrecoProduto.preco;
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        }
+
+        function getRotaSelecionadaToEdition() {
+            return $scope.rotas.filter((rota) => rota.id === getRotaSelecionada())[0];
+        }
+
         $scope.choosenRota = function () {
             unactiveTabs()
+            loadClientesByRota($('#rotaSelect').val());
+            if (produtosList.length == 0) {
+                loadProdutos();
+            }
+
             $scope.rotas.push({
-                name: $('#rotaSelect').val(),
+                id: $('#rotaSelect').val(),
+                nome: $("#rotaSelect option:selected").text(),
                 produtos: produtosList,
                 clientes: clientesList,
                 quantidade: "",
                 preco: "",
                 selectedProduto: "",
                 selectedCliente: "",
+                selectedProdutoNome: "",
+                selectedClienteNome: "",
                 pedidos: []
             })
             // var clild = $scope.rotas.length - 1;
@@ -96,13 +158,13 @@ angular.module('myApp.pedido', ['ngRoute'])
             $('#myModal').modal('hide')
         }
 
-        $scope.addProduto = function (rotaName) {
+        $scope.addProduto = function (rotaId) {
 
-            var rotaInEdition = $scope.rotas.filter((rota) => rota.name === rotaName)[0]
+            var rotaInEdition = $scope.rotas.filter((rota) => rota.id === rotaId)[0]
 
             rotaInEdition.pedidos.push({
-                cliente: rotaInEdition.selectedCliente,
-                produto: rotaInEdition.selectedProduto,
+                cliente: rotaInEdition.selectedCliente + "-" + rotaInEdition.selectedClienteNome,
+                produto: rotaInEdition.selectedProduto + "-" + rotaInEdition.selectedProdutoNome,
                 quantidade: rotaInEdition.quantidade,
                 precoTotal: rotaInEdition.quantidade * rotaInEdition.preco
             });
@@ -126,11 +188,11 @@ angular.module('myApp.pedido', ['ngRoute'])
             $event.preventDefault()
         }
 
-        $scope.saveNovoCliente = function() {
-            var rotaInEdition = $scope.rotas.filter((rota) => rota.name === getRotaSelecionada())[0]
+        $scope.saveNovoCliente = function () {
+            var rotaInEdition = $scope.rotas.filter((rota) => rota.id === getRotaSelecionada())[0]
             rotaInEdition.clientes.push({
                 id: 0,
-                name: $scope.novoCliente.nome
+                nome: $scope.novoCliente.nome
             })
         }
 
@@ -138,12 +200,12 @@ angular.module('myApp.pedido', ['ngRoute'])
             return $('.tab-pane.active.show').attr('id');
         }
 
-        $scope.saveNovoProduto = function() {
+        $scope.saveNovoProduto = function () {
             var rotaSelected = $('.tab-pane.active.show').attr('id');
-            var rotaInEdition = $scope.rotas.filter((rota) => rota.name === getRotaSelecionada())[0]
+            var rotaInEdition = $scope.rotas.filter((rota) => rota.id === getRotaSelecionada())[0]
             rotaInEdition.produtos.push({
                 id: 0,
-                name: $scope.novoProduto.nome
+                nome: $scope.novoProduto.nome
             })
         }
 

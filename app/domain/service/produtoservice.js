@@ -18,4 +18,19 @@ angular.module('myApp.ProdutoService', ['ngStorage'])
                         alert('falha')
                     });
         }
+
+        this.findAll = function (produtoCallback) {
+            $http.get(API.produtoAllURL)
+                .then(
+                    function (response) {
+                        if (response.status == 200) {
+                            produtoCallback.onSuccess(response.data)
+                        } else {
+                            alert('falha ao carregar produtos')
+                        }
+                    },
+                    function (response) {
+                        alert('falha')
+                    });
+        }
     }]);

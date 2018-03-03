@@ -19,4 +19,22 @@ angular.module('myApp.ClienteService', ['ngStorage'])
                         alert('falha')
                     });
         }
+
+        this.findAllByRota = function (rotaId, clienteCallback) {
+
+            $http.get(API.clienteAllByRotaURL + rotaId)
+                .then(
+                    function (response) {
+                        if (response.status == 200) {
+                            clienteCallback.onSuccess(response.data)
+                        } else {
+                            alert('cliente inválido')
+                        }
+                    },
+                    function (response) {
+                        alert('falha')
+                    });
+        }
+
+
     }]);

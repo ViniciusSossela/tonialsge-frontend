@@ -10,6 +10,7 @@ angular.module('myApp.API', [])
 
         this.clienteAddURL = server + "cliente/";
         this.clienteAllURL = server + "cliente/all";
+        this.clienteAllByRotaURL = server + "cliente/rota/";
 
         this.rotaAllUrl = server + "rota/all";
         this.rotaAddUrl = server + "rota/";

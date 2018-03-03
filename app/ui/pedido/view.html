@@ -11,12 +11,9 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="rotaSelect">Rotas</label>
-                    <select class="form-control" id="rotaSelect">
-                        <option>Rota RS/Sul</option>
-                        <option>Rota RS/Norte</option>
-                        <option>Rota SP/Norte</option>
-                        <option>Rota SP/Nordeste</option>
-                        <option>Rota PR/Norte</option>
+                    <select required class="form-control" id="rotaSelect">
+                        <option value="">Selecione uma rota</option>
+                        <option ng-repeat="rota in rotasList" ng-value="rota.id">{{rota.nome}}</option>
                     </select>
                 </div>
             </div>
@@ -27,7 +24,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Modal Cliente-->
 <div class="modal fade" id="modalNovoCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,7 +62,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Modal Produto-->
 <div class="modal fade" id="modalNovoProduto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -122,7 +117,7 @@
 
 <ul class="nav nav-tabs nav-pedido-tabs">
     <li class="nav-item" ng-repeat="rota in rotas">
-        <a class="nav-link active show" href="#{{rota.name}}" ng-click="tabClicked($event)" data-toggle="tab">{{rota.name}}</a>
+        <a class="nav-link active show" href="#{{rota.nome}}" ng-click="tabClicked($event)" data-toggle="tab">{{rota.nome}}</a>
     </li>
     <li>
         <a style="display: block; padding: 0.5rem 1rem;" href="#addRota" ng-click="tabNovaRotaClicked($event)" data-toggle="tab">Nova Aba</a>
@@ -130,15 +125,15 @@
 </ul>
 
 <div class="tab-content">
-    <div id="{{rota.name}}" class="tab-pane active show" ng-repeat="rota in rotas">
-        <form class="form-pedido-{{rota.name}}">
+    <div id="{{rota.id}}" class="tab-pane active show" ng-repeat="rota in rotas">
+        <form class="form-pedido-{{rota.nome}}">
 
             <div class="row">
                 <div class="col-10">
                     <div class="form-group">
                         <label for="clienteSelect">Cliente</label>
-                        <select ng-model="rota.selectedCliente" class="form-control" id="clienteSelect">
-                            <option ng-repeat="cliente in rota.clientes" value="{{cliente.id}}">{{cliente.name}}</option>
+                        <select ng-change="updateSelectedCliente()" ng-model="rota.selectedCliente" class="form-control" id="clienteSelect">
+                            <option ng-repeat="cliente in rota.clientes" value="{{cliente.id}}">{{cliente.nome}}</option>
                         </select>
                     </div>
                 </div>
@@ -155,8 +150,8 @@
                 <div class="col-10">
                     <div class="form-group">
                         <label for="produtoSelect">Produto</label>
-                        <select ng-model="rota.selectedProduto" class="form-control" id="produtoSelect">
-                            <option ng-repeat="produto in rota.produtos" value="{{produto.id}}">{{produto.name}}</option>
+                        <select ng-change="updateSelectedProduto()" ng-model="rota.selectedProduto" class="form-control" id="produtoSelect">
+                            <option ng-repeat="produto in rota.produtos" value="{{produto.id}}">{{produto.nome}}</option>
                         </select>
                     </div>
                 </div>
@@ -186,7 +181,7 @@
             </div>
 
 
-            <button ng-click="addProduto(rota.name)" class="btn btn-primary default-margin float-right">Adicionar</button>
+            <button ng-click="addProduto(rota.id)" class="btn btn-primary default-margin float-right">Adicionar</button>
             <button type="submit" ng-click="imprimirRota()" class="btn btn-primary default-margin float-right">Imprimir Rota</button>
             <button type="submit" class="btn btn-primary default-margin float-right">Finalizar Rota</button>
             <table class="table table-striped">
