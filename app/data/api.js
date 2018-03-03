@@ -4,7 +4,8 @@
 angular.module('myApp.API', [])
     .service('API', function () {
 
-        var server = "http://localhost:8080/";
+        // var server = "http://localhost:8080/";
+        var server = "http://52.207.215.106:8080/";
 
         this.loginURL = server + "usuario/login";
 
