@@ -17,40 +17,9 @@
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
-  <div class="master-page">
-      
-      <div class="row full-height">
-        <div id="toolbar" permission class="col-12">
-          <img class="logo-tonial" src="img/logo-tonial.png" alt="Tonial Mudas">
+    <ui-view></ui-view>
 
-          <label class="default-label-nav nav-cliente">Clientes</label>
-          <label class="nav-cliente font-bold cliente-ammount">258</label>
-
-          <label class="default-label-nav nav-produto">Produtos</label>
-          <label class="nav-produto font-bold cliente-ammount">170</label>
-
-          <label class="default-label-nav nav-pedido">Pedidos</label>
-          <label class="nav-pedido font-bold cliente-ammount">658</label>
-
-          <label class="default-label">Bem vindo, Maicon</label>
-          <div class="seta-esquerda"></div>
-          <div class="seta-cima"></div>
-          <div class="seta-baixo"></div>
-        </div>
-        <div id="side-menu" permission class="col-2 div-menu">
-            <ul class="menu">
-                <li><a href="#!/cliente">Cliente</a></li>
-                <li><a href="#!/produto">Produto</a></li>
-                <li><a href="#!/rota">Rota</a></li>
-                <li><a href="#!/tabelapreco">Tabela de Preços</a></li>
-                <li><a href="#!/pedido">Pedido</a></li>
-              </ul>
-        </div>
-        <div id="ng-view" class="col-10 view-content">
-            <div ng-view></div>
-        </div>
-      </div>
-    </div>
+  
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
@@ -66,6 +35,7 @@
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/ngstorage/ngStorage.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="bower_components/jQuery/dist/jquery.slim.js"></script>
   <script src="data/api.js"></script>
   <script src="domain/service/authservice.js"></script>
@@ -81,6 +51,7 @@
   <script src="ui/tabelapreco/controller.js"></script>
   <script src="ui/pedido/controller.js"></script>
   <script src="ui/login/controller.js"></script>
+  <script src="ui/clientereport/controller.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/permission-directive.js"></script>
   <script src="components/version/version-directive.js"></script>

@@ -3,12 +3,14 @@
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
   'ngRoute',
+  'ui.router',
   'myApp.cliente',
   'myApp.produto',
   'myApp.rota',
   'myApp.login',
   'myApp.tabelapreco',
   'myApp.pedido',
+  'myApp.clientereport',
   'myApp.API',
   'myApp.AuthService',
   'myApp.ClienteService',
@@ -18,23 +20,31 @@ angular.module('myApp', [
   'serviceUm',
   'myApp.version'
 ]).
-  config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+  config(['$locationProvider', '$routeProvider', '$stateProvider', function ($locationProvider, $routeProvider, $stateProvider) {
     $locationProvider.hashPrefix('!');
 
-    $routeProvider.otherwise({ redirectTo: '/login' });
-  }]).
-  run(['$rootScope', '$location', 'AuthService', function ($rootScope, $location, AuthService) {
+    $routeProvider.otherwise({ redirectTo: 'authentication/login' });
 
-    $rootScope.$on('$routeChangeStart', function (event, next) {
-      // alert('routeChangeStart')
+    $stateProvider
+      .state('tonial', {
+        url: '/tonial',
+        abstract: true,
+        templateUrl: 'ui/root.html',
+      })
+      .state('authentication', {
+        url: '/authentication',
+        abstract: true,
+        templateUrl: 'ui/login/authentication.html',
+        // controller: 'LoginCtrl as menu'
+      });
+
+  }]).
+  run(['$rootScope', '$location', '$state', '$transitions', 'AuthService', function ($rootScope, $location, $state, $transitions, AuthService) {
+
+    $transitions.onSuccess({}, trans => {
       if (!AuthService.isLoggedIn()) {
-        // alert('sem usuario logado')
-        // event.preventDefault();
-        $location.path("/login");
-      } else {
-        $('#ng-view').addClass('view-content')
-        $('#side-menu').show()
-        $('#toolbar').show()
+        $state.go('authentication.login')
       }
     });
+
   }]);

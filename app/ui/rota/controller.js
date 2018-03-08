@@ -1,12 +1,19 @@
 'use strict';
 
-angular.module('myApp.rota', ['ngRoute'])
+angular.module('myApp.rota', ['ngRoute', 'ui.router'])
+  .config(['$routeProvider', '$stateProvider', function ($routeProvider, $stateProvider) {
 
-  .config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/rota', {
-      templateUrl: 'ui/rota/view.html',
-      controller: 'RotaCtrl'
-    });
+    $stateProvider
+      .state('tonial.rota', {
+        cache: false,
+        url: '/rota',
+        views: {
+          'pageContent': {
+            templateUrl: 'ui/rota/view.html',
+            controller: 'RotaCtrl'
+          }
+        }
+      });
   }])
 
   .controller('RotaCtrl', ['$scope', '$http', 'hexafy', 'RotaService', function ($scope, $http, hexafy, RotaService) {

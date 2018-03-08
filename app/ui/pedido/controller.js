@@ -1,12 +1,19 @@
 'use strict';
 
-angular.module('myApp.pedido', ['ngRoute'])
+angular.module('myApp.pedido', ['ngRoute', 'ui.router'])
+    .config(['$routeProvider', '$stateProvider', function ($routeProvider, $stateProvider) {
 
-    .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/pedido', {
-            templateUrl: 'ui/pedido/view.html',
-            controller: 'PedidoCtrl'
-        });
+        $stateProvider
+            .state('tonial.pedido', {
+                cache: false,
+                url: '/pedido',
+                views: {
+                    'pageContent': {
+                        templateUrl: 'ui/pedido/view.html',
+                        controller: 'PedidoCtrl'
+                    }
+                }
+            });
     }])
 
     .controller('PedidoCtrl', ['$scope', '$http', '$log', '$location', 'ProdutoService', 'ClienteService', 'RotaService', 'TabelaPrecoService', function ($scope, $http, $log, $location, ProdutoService, ClienteService, RotaService, TabelaPrecoService) {
@@ -180,7 +187,8 @@ angular.module('myApp.pedido', ['ngRoute'])
         }
 
         $scope.imprimirRota = function () {
-            $location.path("/login");
+            window.open('#!authentication/clientereport', '_blank'); // in new tab
+            // $location.path("/clientereport");
         }
 
         $scope.tabClicked = function ($event) {
