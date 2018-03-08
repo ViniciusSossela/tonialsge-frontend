@@ -20,10 +20,10 @@ angular.module('myApp', [
   'serviceUm',
   'myApp.version'
 ]).
-  config(['$locationProvider', '$routeProvider', '$stateProvider', function ($locationProvider, $routeProvider, $stateProvider) {
+  config(['$locationProvider', '$routeProvider', '$stateProvider', '$urlRouterProvider', function ($locationProvider, $routeProvider, $stateProvider, $urlRouterProvider) {
     $locationProvider.hashPrefix('!');
-
-    $routeProvider.otherwise({ redirectTo: 'authentication/login' });
+    $urlRouterProvider.otherwise('/authentication/login');
+    $stateProvider.state("otherwise", { url: '/authentication/login' })
 
     $stateProvider
       .state('tonial', {
@@ -35,15 +35,21 @@ angular.module('myApp', [
         url: '/authentication',
         abstract: true,
         templateUrl: 'ui/login/authentication.html',
-        // controller: 'LoginCtrl as menu'
+      })
+      .state('report', {
+        url: '/report',
+        abstract: true,
+        templateUrl: 'ui/root-report.html',
       });
-
   }]).
   run(['$rootScope', '$location', '$state', '$transitions', 'AuthService', function ($rootScope, $location, $state, $transitions, AuthService) {
 
     $transitions.onSuccess({}, trans => {
-      if (!AuthService.isLoggedIn()) {
-        $state.go('authentication.login')
+
+      if (trans.to().name != "report.clientereport") {
+        if (!AuthService.isLoggedIn()) {
+          $state.go('authentication.login')
+        }
       }
     });
 

@@ -2,18 +2,23 @@
 <p>
   Showing of 'interpolate' filter: {{ 'Current version is v%VERSION%.' | interpolate }}
 </p> -->
-<p class="page-title">Cliente report</p>
-<form class="form-produto">
-  <div class="form-group">
-    <label for="rotaNameInput">Nome do Rota</label>
-    <input type="text"  class="form-control" id="rotaNameInput" aria-describedby="rotaAjuda"
-      placeholder="Nome do Rota">
-  </div>
+<div ng-repeat="pedido in pedidoReport">
+    <table class="table">
+        <p class="page-title">Cliente: {{pedido.cliente}}</p>
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Valor Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="pedidoItem in pedido.produtos">
+                <td>{{pedidoItem.produto}}</td>
+                <td>{{pedidoItem.quantidade}}</td>
+                <td>{{pedidoItem.precoTotal}}</td>
+            </tr>
+        </tbody>
+    </table>
 
-  <div class="form-group">
-    <label for="descricaoTextarea">Descrição</label>
-    <textarea class="form-control" id="descricaoTextarea" rows="3"></textarea>
-  </div>
-
-  
-</form>
+</div>

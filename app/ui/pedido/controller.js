@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('myApp.pedido', ['ngRoute', 'ui.router'])
-    .config(['$routeProvider', '$stateProvider', function ($routeProvider, $stateProvider) {
+angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
+    .config(['$routeProvider', '$stateProvider', function ($routeProvider, $stateProvider, $localStorage) {
 
         $stateProvider
             .state('tonial.pedido', {
@@ -16,7 +16,8 @@ angular.module('myApp.pedido', ['ngRoute', 'ui.router'])
             });
     }])
 
-    .controller('PedidoCtrl', ['$scope', '$http', '$log', '$location', 'ProdutoService', 'ClienteService', 'RotaService', 'TabelaPrecoService', function ($scope, $http, $log, $location, ProdutoService, ClienteService, RotaService, TabelaPrecoService) {
+    .controller('PedidoCtrl', ['$scope', '$http', '$log', '$location', '$localStorage', 'ProdutoService', 
+    'ClienteService', 'RotaService', 'TabelaPrecoService', function ($scope, $http, $log, $location, $localStorage, ProdutoService, ClienteService, RotaService, TabelaPrecoService) {
 
         $('#myModal').modal('show')
 
@@ -170,6 +171,8 @@ angular.module('myApp.pedido', ['ngRoute', 'ui.router'])
             var rotaInEdition = $scope.rotas.filter((rota) => rota.id === rotaId)[0]
 
             rotaInEdition.pedidos.push({
+                idCliente: rotaInEdition.selectedCliente,
+                idProduto: rotaInEdition.selectedProduto,
                 cliente: rotaInEdition.selectedCliente + "-" + rotaInEdition.selectedClienteNome,
                 produto: rotaInEdition.selectedProduto + "-" + rotaInEdition.selectedProdutoNome,
                 quantidade: rotaInEdition.quantidade,
@@ -187,8 +190,10 @@ angular.module('myApp.pedido', ['ngRoute', 'ui.router'])
         }
 
         $scope.imprimirRota = function () {
-            window.open('#!authentication/clientereport', '_blank'); // in new tab
-            // $location.path("/clientereport");
+            // $localStorage.pedidoImpressao = getRotaSelecionadaToEdition().pedido;
+            $localStorage.message = JSON.stringify(getRotaSelecionadaToEdition().pedidos);
+            
+            window.open('#!report/clientereport', '_blank');
         }
 
         $scope.tabClicked = function ($event) {
