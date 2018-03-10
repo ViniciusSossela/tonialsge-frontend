@@ -1,24 +1,24 @@
 'use strict';
 
-angular.module('myApp.clientereport', ['ngRoute', 'ngStorage'])
+angular.module('myApp.rotareport', ['ngRoute', 'ngStorage'])
 
     .config(['$routeProvider', '$stateProvider', function ($routeProvider, $stateProvider) {
 
         $stateProvider
-            .state('report.clientereport', {
+            .state('report.rotareport', {
                 cache: false,
-                url: '/clientereport',
+                url: '/rotareport',
                 views: {
                     'pageContentReport': {
-                        templateUrl: 'ui/clientereport/view.html',
-                        controller: 'ClienteReportCtrl'
+                        templateUrl: 'ui/rotareport/view.html',
+                        controller: 'RotaReportCtrl'
                     }
                 }
             });
 
     }])
 
-    .controller('ClienteReportCtrl', ['$scope', '$http', '$localStorage', function ($scope, $http, $localStorage) {
+    .controller('RotaReportCtrl', ['$scope', '$http', '$localStorage', function ($scope, $http, $localStorage) {
 
         $scope.pedidoReport = []
 
@@ -44,30 +44,33 @@ angular.module('myApp.clientereport', ['ngRoute', 'ngStorage'])
         }
 
         function fetchReport() {
-            var pedidosPorCliente = [];
+            var pedidosPorProduto = [];
             if ($localStorage.message == null) {
                 location.reload();
                 // alert('Tente abrir novamente');
             } else {
                 var pedidos = JSON.parse($localStorage.message);
-                const grouped = groupBy(pedidos, ped => ped.cliente);
+                const grouped = groupBy(pedidos, ped => ped.produto);
 
 
                 grouped.forEach(function (valor, chave, mapa) {
 
-                    var valorTotal = 0;
+                    var quantidadeTotalCalc = 0;
                     valor.forEach(function (item) {
-                        valorTotal += parseFloat(item.precoTotal);
+                        quantidadeTotalCalc += parseFloat(item.quantidade);
                     });
 
-                    pedidosPorCliente.push({
-                        cliente: chave,
-                        produtos: valor,
-                        totalPedidoCliente: valorTotal.toFixed(2)
+                    pedidosPorProduto.push({
+                        produto: chave,
+                        quantidadeTotal: quantidadeTotalCalc
                     });
                 });
 
-                $scope.pedidoReport = pedidosPorCliente;
+                $scope.pedidoReport = 
+                {
+                    pedidos: pedidosPorProduto,
+                    rota: pedidos[0].rota
+                }
                 $localStorage.$reset();
             }
         }

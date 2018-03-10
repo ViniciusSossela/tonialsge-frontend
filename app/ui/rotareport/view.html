@@ -1,0 +1,17 @@
+<div style=" margin-bottom:80px">
+    <table class="table table-bordered ">
+        <p class="font-weight-bold">Rota: {{pedidoReport.rota}}</p>
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="pedido in pedidoReport.pedidos">
+                <td style="width: 80%">{{pedido.produto}}</td>
+                <td style="width: 20%">{{pedido.quantidadeTotal}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

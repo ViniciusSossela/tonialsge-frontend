@@ -11,6 +11,7 @@ angular.module('myApp', [
   'myApp.tabelapreco',
   'myApp.pedido',
   'myApp.clientereport',
+  'myApp.rotareport',
   'myApp.API',
   'myApp.AuthService',
   'myApp.ClienteService',
@@ -44,9 +45,9 @@ angular.module('myApp', [
   }]).
   run(['$rootScope', '$location', '$state', '$transitions', 'AuthService', function ($rootScope, $location, $state, $transitions, AuthService) {
 
-    $transitions.onSuccess({}, trans => {
+    $transitions.onStart({}, trans => {
 
-      if (trans.to().name != "report.clientereport") {
+      if (trans.to().name != "report.clientereport" || trans.to().name != "report.clientereport") {
         if (!AuthService.isLoggedIn()) {
           $state.go('authentication.login')
         }

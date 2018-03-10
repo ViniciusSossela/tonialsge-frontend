@@ -4,7 +4,7 @@ angular.module('myApp.login', ['ngRoute', 'ui.router'])
 
     .config(['$routeProvider', '$stateProvider', function ($routeProvider, $stateProvider) {
 
-        $stateProvider       
+        $stateProvider
             .state('authentication.login', {
                 cache: false,
                 url: '/login',
@@ -31,7 +31,11 @@ angular.module('myApp.login', ['ngRoute', 'ui.router'])
             }
 
             onSuccess(usuario) {
-                $state.go('tonial.cliente')
+                if (usuario != null && usuario != "") {
+                    $state.go('tonial.cliente')
+                } else {
+                    alert('Usuário ou senha inválido.')
+                }
                 // $location.path("/cliente");
             }
         }
