@@ -117,7 +117,7 @@
 
 <ul class="nav nav-tabs nav-pedido-tabs">
     <li class="nav-item" ng-repeat="rota in rotas">
-        <a class="nav-link active show" href="#{{rota.nome}}" ng-click="tabClicked($event)" data-toggle="tab">{{rota.nome}}</a>
+        <a class="nav-link active show" ng-click="tabClicked(rota.id)" data-toggle="tab">{{rota.nome}}</a>
     </li>
     <li>
         <a style="display: block; padding: 0.5rem 1rem;" href="#addRota" ng-click="tabNovaRotaClicked($event)" data-toggle="tab">Nova Aba</a>
@@ -126,7 +126,7 @@
 
 <div class="tab-content">
     <div id="{{rota.id}}" class="tab-pane active show" ng-repeat="rota in rotas">
-        <form class="form-pedido-{{rota.nome}}">
+        <form class="form-pedido-{{rota.id}}">
 
             <div class="row">
                 <div class="col-10">
@@ -167,14 +167,14 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="amountInput">Quantidade</label>
-                        <input type="number" max="99" required min="0" ng-model="rota.quantidade" class="form-control" id="amountInput" aria-describedby="QauntidadeAjuda"
+                        <input type="number" max="200" required min="0" ng-model="rota.quantidade" class="form-control" id="amountInput" aria-describedby="QauntidadeAjuda"
                             placeholder="Quantidade">
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="priceInput">Preço unitário</label>
-                        <input type="number" max="99" required min="0" ng-model="rota.preco" class="form-control" id="priceInput" aria-describedby="PrecoAjuda"
+                        <input type="number" step=".01" required ng-model="rota.preco" class="form-control" id="priceInput" aria-describedby="PrecoAjuda"
                             placeholder="Preço">
                     </div>
                 </div>
@@ -183,6 +183,7 @@
 
             <button ng-click="addProduto(rota.id)" class="btn btn-primary default-margin float-right">Adicionar</button>
             <button type="submit" ng-click="imprimirRota()" class="btn btn-primary default-margin float-right">Imprimir Rota</button>
+            <button type="submit" ng-click="imprimirCarregamento()" class="btn btn-primary default-margin float-right">Carregar Caminhão</button>
             <button type="submit" class="btn btn-primary default-margin float-right">Finalizar Rota</button>
             <table class="table table-striped">
                 <thead>

@@ -1,12 +1,21 @@
 'use strict';
 
-angular.module('myApp.produto', ['ngRoute'])
+angular.module('myApp.produto', ['ngRoute', 'ui.router'])
 
-  .config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/produto', {
-      templateUrl: 'ui/produto/view.html',
-      controller: 'ProdutoCtrl'
-    });
+  // .config(['$routeProvider', function ($routeProvider) {
+  .config(['$routeProvider', '$stateProvider', function ($routeProvider, $stateProvider) {
+
+    $stateProvider
+      .state('tonial.produto', {
+        cache: false,
+        url: '/produto',
+        views: {
+          'pageContent': {
+            templateUrl: 'ui/produto/view.html',
+            controller: 'ProdutoCtrl'
+          }
+        }
+      });
   }])
 
   .controller('ProdutoCtrl', ['$scope', 'ProdutoService', 'TabelaPrecoService', function ($scope, ProdutoService, TabelaPrecoService) {

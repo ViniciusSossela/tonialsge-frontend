@@ -1,0 +1,22 @@
+<div ng-repeat="pedido in pedidoReport" style=" margin-bottom:80px">
+    <table class="table table-bordered ">
+        <p class="font-weight-bold">Cliente: {{pedido.cliente}}</p>
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Valor Unitário</th>
+                <th>Valor Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="pedidoItem in pedido.produtos">
+                <td style="width: 50%">{{pedidoItem.produto}}</td>
+                <td style="width: 16.66%">{{pedidoItem.quantidade}}</td>
+                <td style="width: 16.66%">RS {{(pedidoItem.precoTotal / pedidoItem.quantidade).toFixed(2)}}</td>
+                <td style="width: 16.66%">R$ {{pedidoItem.precoTotal}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="float-right">Total a Pagar: R$ {{pedido.totalPedidoCliente}}</p>
+</div>

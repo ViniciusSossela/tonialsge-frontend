@@ -1,15 +1,24 @@
 'use strict';
 
-angular.module('myApp.login', ['ngRoute'])
+angular.module('myApp.login', ['ngRoute', 'ui.router'])
 
-    .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/login', {
-            templateUrl: 'ui/login/view.html',
-            controller: 'LoginCtrl'
-        });
+    .config(['$routeProvider', '$stateProvider', function ($routeProvider, $stateProvider) {
+
+        $stateProvider
+            .state('authentication.login', {
+                cache: false,
+                url: '/login',
+                views: {
+                    'pageContentLogin': {
+                        templateUrl: 'ui/login/view.html',
+                        controller: 'LoginCtrl'
+                    }
+                }
+            });
+
     }])
 
-    .controller('LoginCtrl', ['$scope', '$http', '$location', 'hexafy', 'AuthService', function ($scope, $http, $location, hexafy, AuthService) {
+    .controller('LoginCtrl', ['$scope', '$http', '$location', '$state', 'AuthService', function ($scope, $http, $location, $state, AuthService) {
         $('.view-content').removeClass('view-content')
 
         $scope.user = {
@@ -20,9 +29,14 @@ angular.module('myApp.login', ['ngRoute'])
         class LoginCallback {
             constructor() {
             }
-        
-            onSuccess(usuario) {  
-                $location.path("/cliente");
+
+            onSuccess(usuario) {
+                if (usuario != null && usuario != "") {
+                    $state.go('tonial.cliente')
+                } else {
+                    alert('Usuário ou senha inválido.')
+                }
+                // $location.path("/cliente");
             }
         }
         // function to submit the form after all validation has occurred            
@@ -31,7 +45,7 @@ angular.module('myApp.login', ['ngRoute'])
             // check to make sure the form is completely valid
             if (isValid) {
                 AuthService.login($scope.user, new LoginCallback());
-                
+
             }
 
         };

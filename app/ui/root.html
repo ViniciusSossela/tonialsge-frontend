@@ -1,0 +1,46 @@
+<div class="master-page">
+
+    <div class="row full-height">
+        <div id="toolbar" permission class="col-12">
+            <img class="logo-tonial" src="img/logo-tonial.png" alt="Tonial Mudas">
+
+            <label class="default-label-nav nav-cliente">Clientes</label>
+            <label class="nav-cliente font-bold cliente-ammount">258</label>
+
+            <label class="default-label-nav nav-produto">Produtos</label>
+            <label class="nav-produto font-bold cliente-ammount">170</label>
+
+            <label class="default-label-nav nav-pedido">Pedidos</label>
+            <label class="nav-pedido font-bold cliente-ammount">658</label>
+
+            <label class="default-label">Bem vindo, Maicon</label>
+            <div class="seta-esquerda"></div>
+            <div class="seta-cima"></div>
+            <div class="seta-baixo"></div>
+        </div>
+        <div id="side-menu" permission class="col-2 div-menu">
+            <ul class="menu">
+                <li>
+                    <a href="#!/tonial/cliente">Cliente</a>
+                </li>
+                <li>
+                    <a href="#!/tonial/produto">Produto</a>
+                </li>
+                <li>
+                    <a href="#!/tonial/rota">Rota</a>
+                </li>
+                <li>
+                    <a href="#!/tonial/tabelapreco">Tabela de Preços</a>
+                </li>
+                <li>
+                    <a href="#!/tonial/pedido">Pedido</a>
+                </li>
+            </ul>
+        </div>
+        <div id="ng-view" permission class="col-10 view-content">
+            <!-- <div ng-view></div> -->
+            <!-- <ui-view></ui-view> -->
+            <div ui-view="pageContent"></div>
+        </div>
+    </div>
+</div>
