@@ -22,8 +22,11 @@ angular.module('myApp.produto', ['ngRoute', 'ui.router'])
 
     $scope.tabelasPreco = []
     $scope.produto = {
+      produtoId: 0,
       nome: "",
-      tabelaPrecoProduto: []
+      tabelaPrecoProduto: [],
+      selectedProduto: "",
+      produtos: []
     }
 
     class ProdutoCallback {
@@ -31,7 +34,8 @@ angular.module('myApp.produto', ['ngRoute', 'ui.router'])
       }
 
       onSuccess(produto) {
-        alert("Produto " + produto.nome + " cadastrado com sucesso.");
+        $scope.produto.tabelaPrecoProduto = [];
+        alert("Produto salvo com sucesso.");
       }
     }
 
@@ -53,22 +57,92 @@ angular.module('myApp.produto', ['ngRoute', 'ui.router'])
       }
     }
 
+    class ProdutoLoadCallback {
+      constructor() {
+      }
+
+      onSuccess(produtosList) {
+        $scope.produto.produtos = produtosList
+      }
+    }
+
+    function loadProdutos() {
+      ProdutoService.findAll(new ProdutoLoadCallback());
+    }
+
+
+    class TabelaPrecoProdutoCallback {
+      constructor() {
+      }
+
+      onSuccess(tabelaPrecoProdutoList, tabelaPrecoClienteId) {
+
+        $('#loading').hide();
+        if (tabelaPrecoProdutoList.length > 0) {
+          tabelaPrecoProdutoList.forEach(function (tabelaPrecoProduto) {
+
+            $scope.tabelasPreco.forEach(function (tabelaPreco) {
+              if (tabelaPrecoProduto.tabelaPrecoId == tabelaPreco.id) {
+                tabelaPreco.preco = tabelaPrecoProduto.preco;
+              }
+            });
+          });
+        } else {
+          $scope.tabelasPreco.forEach(function (tabelaPreco) {
+            tabelaPreco.preco = 0
+          });
+        }
+      }
+    }
+
+    function loadTabelaPrecoProduto(produtoId) {
+      $('#loading').show();
+      if (produtoId != 0) {
+        ProdutoService.findTabelaPreco(produtoId, 0, new TabelaPrecoProdutoCallback())
+      } else {
+        $('#loading').hide();
+        $scope.tabelasPreco.forEach(function (tabelaPreco) {
+          tabelaPreco.preco = 0
+        });
+      }
+    }
+
+
     loadTabelasPreco();
+    loadProdutos();
+
+
+    $scope.selectedProduto = function () {
+      loadTabelaPrecoProduto($scope.produto.selectedProduto)
+    }
 
     function loadTabelasPreco() {
       TabelaPrecoService.tabelaPrecoAll(new TabelaPrecoCallback());
     }
 
     $scope.salvarProduto = function () {
-      angular.forEach($scope.tabelasPreco, function (tabelaPrecoVM, key) {
-        $scope.produto.tabelaPrecoProduto.push({
-          preco: tabelaPrecoVM.preco,
-          tabelaPreco: {
-            id: tabelaPrecoVM.id
+
+      if ($scope.produto.nome == "" && $scope.produto.selectedProduto == "") {
+        alert('Informe o nome do novo produto ou selecione um produto para edita-lo')
+      } else {
+
+        if ($scope.produto.nome != "") {
+          $scope.produto.produtoId = 0
+        } else {
+          if ($scope.produto.selectedProduto != "") {
+            $scope.produto.produtoId = $scope.produto.selectedProduto
           }
-        })
-      });
-      ProdutoService.cadastrarProduto($scope.produto, new ProdutoCallback())
+        }
+        angular.forEach($scope.tabelasPreco, function (tabelaPrecoVM, key) {
+          $scope.produto.tabelaPrecoProduto.push({
+            preco: tabelaPrecoVM.preco,
+            tabelaPreco: {
+              id: tabelaPrecoVM.id
+            }
+          })
+        });
+        ProdutoService.cadastrarProduto($scope.produto, new ProdutoCallback())
+      }
     }
 
   }]);

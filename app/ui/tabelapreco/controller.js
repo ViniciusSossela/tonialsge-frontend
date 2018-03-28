@@ -29,7 +29,7 @@ angular.module('myApp.tabelapreco', ['ngRoute', 'ui.router'])
       }
 
       onSuccess(tabelaPreco) {
-        alert(tabelaPreco);
+        alert("Tabela de preço cadastrada com sucesso");
       }
     }
 

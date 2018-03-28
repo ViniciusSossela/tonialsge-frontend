@@ -95,6 +95,25 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
                 ClienteService.findAllByRota(rotaId, new ClienteCallback())
             }
 
+            class TabelaPrecoProdutoCallback {
+                constructor() {
+                }
+
+                onSuccess(tabelaPrecoProdutoList, tabelaPrecoClienteId) {
+                    var rota = getRotaSelecionadaToEdition();
+                    
+                    tabelaPrecoProdutoList.forEach(function (tabelaPrecoProduto) {
+                        if (tabelaPrecoProduto.tabelaPrecoId == tabelaPrecoClienteId) {
+                            rota.preco = tabelaPrecoProduto.preco;
+                        }
+                    });
+                }
+            }
+
+            function loadTabelaPrecoProduto(produtoId, tabelaPrecoClienteId) {
+                ProdutoService.findTabelaPreco(produtoId, tabelaPrecoClienteId, new TabelaPrecoProdutoCallback())
+            }
+
             $scope.salvarTabelaPreco = function () {
                 TabelaPrecoService.tabelaPrecoAll(new TabelaPrecoCallback())
             }
@@ -128,11 +147,12 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
                         angular.forEach(rota.produtos, function (produto) {
                             if (produto.id == rota.selectedProduto) {
                                 rota.selectedProdutoNome = produto.nome;
-                                produto.tabelaPrecoProduto.forEach(function (tabelaPrecoProduto) {
-                                    if (tabelaPrecoProduto.tabelaPreco.id == tabelaPrecoClienteId) {
-                                        rota.preco = tabelaPrecoProduto.preco;
-                                    }
-                                });
+                                loadTabelaPrecoProduto(produto.id, tabelaPrecoClienteId)
+                                // produto.tabelaPrecoProduto.forEach(function (tabelaPrecoProduto) {
+                                //     if (tabelaPrecoProduto.tabelaPreco.id == tabelaPrecoClienteId) {
+                                //         rota.preco = tabelaPrecoProduto.preco;
+                                //     }
+                                // });
                             }
                         });
                     }

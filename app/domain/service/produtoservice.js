@@ -33,4 +33,19 @@ angular.module('myApp.ProdutoService', ['ngStorage'])
                         alert('falha')
                     });
         }
+
+        this.findTabelaPreco = function (produtoId, tabelaPrecoClienteId, produtoCallback) {
+            $http.get(API.produtoTabelaPrecoURL(produtoId))
+                .then(
+                    function (response) {
+                        if (response.status == 200) {
+                            produtoCallback.onSuccess(response.data, tabelaPrecoClienteId)
+                        } else {
+                            alert('falha ao carregar produtos')
+                        }
+                    },
+                    function (response) {
+                        alert('falha')
+                    });
+        }
     }]);

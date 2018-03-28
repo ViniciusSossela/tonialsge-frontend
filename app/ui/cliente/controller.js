@@ -41,7 +41,7 @@ angular.module('myApp.cliente', ['ngRoute', 'ui.router'])
       }
 
       onSuccess(cliente) {
-        alert(cliente);
+        alert("Cliente cadastrado com sucesso");
       }
     }
     class RotaCallback {
