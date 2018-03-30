@@ -18,12 +18,4 @@ angular.module('myApp.version.permission', [])
                 }
             }
         }
-
-        // function (scope, elm, attrs) {
-        //     if (!AuthService.isLoggedIn()) {
-        //         elm.hide();
-        //     } else {
-        //         elm.show();
-        //     }
-        // };
     }]);

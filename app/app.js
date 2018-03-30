@@ -18,6 +18,7 @@ angular.module('myApp', [
   'myApp.ProdutoService',
   'myApp.RotaService',
   'myApp.TabelaPrecoService',
+  'myApp.LoadingService',
   'serviceUm',
   'myApp.version'
 ]).

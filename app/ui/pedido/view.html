@@ -18,8 +18,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" ng-click="choosenRota()" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" ng-click="choosenRota()" class="btn btn-primary">Selecionar</button>
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 <button type="button" ng-click="saveNovoCliente()" class="btn btn-primary">Salvar</button>
             </div>
         </div>
@@ -108,7 +108,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 <button type="button" ng-click="saveNovoProduto()" class="btn btn-primary">Salvar</button>
             </div>
         </div>
@@ -129,7 +129,7 @@
         <form class="form-pedido-{{rota.id}}">
 
             <div class="row">
-                <div class="col-10">
+                <div class="col-12">
                     <div class="form-group">
                         <label for="clienteSelect">Cliente</label>
                         <select ng-change="updateSelectedCliente()" ng-model="rota.selectedCliente" class="form-control" id="clienteSelect">
@@ -137,17 +137,17 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-2">
+                <!-- <div class="col-2">
                     <div class="form-group">
                         <label class="transparent" for="novoCliente">.</label>
                         <button id="novoCliente" type="button" ng-click="novoClienteClicked()" class="form-control btn btn-link">Novo Cliente</button>
                     </div>
-                </div>
+                </div> -->
             </div>
 
 
             <div class="row">
-                <div class="col-10">
+                <div class="col-12">
                     <div class="form-group">
                         <label for="produtoSelect">Produto</label>
                         <select ng-change="updateSelectedProduto()" ng-model="rota.selectedProduto" class="form-control" id="produtoSelect">
@@ -155,12 +155,12 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-2">
+                <!-- <div class="col-2">
                     <div class="form-group">
                         <label class="transparent" for="novoProduto">.</label>
                         <button id="novoProduto" type="button" ng-click="novoProdutoClicked()" class="form-control btn btn-link">Novo Produto</button>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <div class="row">

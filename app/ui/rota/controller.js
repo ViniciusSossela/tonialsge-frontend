@@ -16,24 +16,27 @@ angular.module('myApp.rota', ['ngRoute', 'ui.router'])
       });
   }])
 
-  .controller('RotaCtrl', ['$scope', '$http', 'hexafy', 'RotaService', function ($scope, $http, hexafy, RotaService) {
+  .controller('RotaCtrl', ['$scope', '$http', 'hexafy', 'RotaService', 'LoadingService',
+    function ($scope, $http, hexafy, RotaService, LoadingService) {
 
-    $scope.rota = {
-      nome: "",
-      descricao: ""
-    }
-
-    class RotaCallback {
-      constructor() {
+      $scope.rota = {
+        nome: "",
+        descricao: ""
       }
 
-      onSuccess(rota) {
-        alert("Rota: " + rota.nome + ", salva com sucesso");
+      class RotaCallback {
+        constructor() {
+        }
+
+        onSuccess(rota) {
+          LoadingService.hideLoading();
+          alert("Rota salva com sucesso");
+        }
       }
-    }
 
-    $scope.salvarRota = function () {
-      RotaService.save($scope.rota, new RotaCallback())
-    }
+      $scope.salvarRota = function () {
+        LoadingService.showLoading();
+        RotaService.save($scope.rota, new RotaCallback())
+      }
 
-  }]);
+    }]);

@@ -18,7 +18,8 @@ angular.module('myApp.login', ['ngRoute', 'ui.router'])
 
     }])
 
-    .controller('LoginCtrl', ['$scope', '$http', '$location', '$state', 'AuthService', function ($scope, $http, $location, $state, AuthService) {
+    .controller('LoginCtrl', ['$scope', '$http', '$location', '$state', 'AuthService','LoadingService', 
+    function ($scope, $http, $location, $state, AuthService, LoadingService) {
         $('.view-content').removeClass('view-content')
 
         $scope.user = {
@@ -31,6 +32,7 @@ angular.module('myApp.login', ['ngRoute', 'ui.router'])
             }
 
             onSuccess(usuario) {
+                LoadingService.hideLoading()
                 if (usuario != null && usuario != "") {
                     $state.go('tonial.cliente')
                 } else {
@@ -44,6 +46,7 @@ angular.module('myApp.login', ['ngRoute', 'ui.router'])
 
             // check to make sure the form is completely valid
             if (isValid) {
+                LoadingService.showLoading()
                 AuthService.login($scope.user, new LoginCallback());
 
             }
