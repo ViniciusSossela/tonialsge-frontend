@@ -150,7 +150,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="produtoSelect">Produto</label>
-                        <select ng-change="selectedProduto()" ng-model="rota.selectedProduto" class="form-control" id="produtoSelect">
+                        <select ng-change="updateSelectedProduto()" ng-model="rota.selectedProduto" class="form-control" id="produtoSelect">
                             <option ng-repeat="produto in rota.produtos" value="{{produto.id}}">{{produto.nome}}</option>
                         </select>
                     </div>
