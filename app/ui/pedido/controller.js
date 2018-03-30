@@ -101,7 +101,7 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
 
                 onSuccess(tabelaPrecoProdutoList, tabelaPrecoClienteId) {
                     var rota = getRotaSelecionadaToEdition();
-                    
+
                     tabelaPrecoProdutoList.forEach(function (tabelaPrecoProduto) {
                         if (tabelaPrecoProduto.tabelaPrecoId == tabelaPrecoClienteId) {
                             rota.preco = tabelaPrecoProduto.preco;
@@ -148,11 +148,6 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
                             if (produto.id == rota.selectedProduto) {
                                 rota.selectedProdutoNome = produto.nome;
                                 loadTabelaPrecoProduto(produto.id, tabelaPrecoClienteId)
-                                // produto.tabelaPrecoProduto.forEach(function (tabelaPrecoProduto) {
-                                //     if (tabelaPrecoProduto.tabelaPreco.id == tabelaPrecoClienteId) {
-                                //         rota.preco = tabelaPrecoProduto.preco;
-                                //     }
-                                // });
                             }
                         });
                     }
