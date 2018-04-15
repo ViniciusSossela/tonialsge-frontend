@@ -17,10 +17,11 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
     }])
 
     .controller('PedidoCtrl', ['$scope', '$http', '$log', '$location', '$localStorage', 'ProdutoService',
-        'ClienteService', 'RotaService', 'TabelaPrecoService', function ($scope, $http, $log, $location, $localStorage, ProdutoService, ClienteService, RotaService, TabelaPrecoService) {
+        'ClienteService', 'RotaService', 'TabelaPrecoService', 'LoadingService', function ($scope, $http, $log, $location, $localStorage, ProdutoService, ClienteService, RotaService, TabelaPrecoService, LoadingService) {
 
             $('#myModal').modal('show')
 
+            $scope.pedidoIdentifier = 0
             $scope.rotas = []
             $scope.rotasList = []
             $scope.pedidos = []
@@ -30,7 +31,8 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
             $scope.novoCliente = {
                 id: 0,
                 nome: "",
-                tabelaPrecoId: 0
+                tabelasPreco: [],
+                tabelaPrecoSelecionada: 0
             };
 
             $scope.novoProduto = {
@@ -75,7 +77,7 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
                 }
 
                 onSuccess(tabelasPreco) {
-                    $scope.novoProduto.tabelasPreco = tabelasPreco;
+                    $scope.novoCliente.tabelasPreco = tabelasPreco;
                 }
             }
 
@@ -114,9 +116,10 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
                 ProdutoService.findTabelaPreco(produtoId, tabelaPrecoClienteId, new TabelaPrecoProdutoCallback())
             }
 
-            $scope.salvarTabelaPreco = function () {
+            function loadAllTabelasPreco () {
                 TabelaPrecoService.tabelaPrecoAll(new TabelaPrecoCallback())
             }
+            loadAllTabelasPreco();
 
             $scope.tabNovaRotaClicked = function ($event) {
                 $('#myModal').modal('show')
@@ -183,11 +186,17 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
                 $('#myModal').modal('hide')
             }
 
+            $scope.excluirProdutoPedido = function(pedidoId) {
+                var rotaInEdition = getRotaSelecionadaToEdition()
+                rotaInEdition.pedidos.splice(pedidoId, 1)
+            }
+
             $scope.addProduto = function (rotaId) {
 
                 var rotaInEdition = $scope.rotas.filter((rota) => rota.id === rotaId)[0]
 
                 rotaInEdition.pedidos.push({
+                    id: $scope.pedidoIdentifier,
                     rota: rotaInEdition.nome,
                     idCliente: rotaInEdition.selectedCliente,
                     idProduto: rotaInEdition.selectedProduto,
@@ -197,6 +206,7 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
                     precoTotal: (rotaInEdition.quantidade * rotaInEdition.preco).toFixed(2)
                 });
 
+                $scope.pedidoIdentifier = $scope.pedidoIdentifier + 1;
             }
 
             $scope.novoClienteClicked = function () {
@@ -229,24 +239,61 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
             }
 
             $scope.saveNovoCliente = function () {
-                var rotaInEdition = $scope.rotas.filter((rota) => rota.id === getRotaSelecionada())[0]
-                rotaInEdition.clientes.push({
+                LoadingService.showLoading();
+
+                var cliente = {
                     id: 0,
-                    nome: $scope.novoCliente.nome
-                })
+                    nome: $scope.novoCliente.nome,
+                    rota: {
+                        id : getRotaSelecionada()
+                    },
+                    tabelaPreco: {
+                        id : $scope.novoCliente.tabelaPrecoSelecionada
+                    },
+                    cidade: $scope.novoCliente.cidade,
+                    estado: $scope.novoCliente.estado
+                }
+
+                ClienteService.cadastrarCliente(cliente, new NovoClienteCallback());
             }
+
+            class NovoClienteCallback {
+                constructor() {
+                }
+
+                onSuccess(cliente) {
+                    LoadingService.hideLoading();
+                    var rotaInEdition = getRotaSelecionadaToEdition()
+                    rotaInEdition.clientes.push(cliente);
+                }
+            }
+
 
             function getRotaSelecionada() {
                 return $('.tab-pane.active.show').attr('id');
             }
 
             $scope.saveNovoProduto = function () {
-                var rotaSelected = $('.tab-pane.active.show').attr('id');
-                var rotaInEdition = $scope.rotas.filter((rota) => rota.id === getRotaSelecionada())[0]
-                rotaInEdition.produtos.push({
+                LoadingService.showLoading();
+                var produto = {
                     id: 0,
                     nome: $scope.novoProduto.nome
-                })
+                }
+                ProdutoService.cadastrarProduto(produto, new NovoProdutoCallback());
+            }
+
+            class NovoProdutoCallback {
+                constructor() {
+                }
+
+                onSuccess(produto) {
+                    LoadingService.hideLoading();
+                    var rotaInEdition = getRotaSelecionadaToEdition()
+                    rotaInEdition.produtos.push({
+                        id: produto.id,
+                        nome: produto.nome
+                    })
+                }
             }
 
             function unactiveTabs() {

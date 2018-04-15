@@ -79,7 +79,7 @@ angular.module('myApp.produto', ['ngRoute', 'ui.router'])
 
         onSuccess(tabelaPrecoProdutoList, tabelaPrecoClienteId) {
 
-          $('#loading').hide();
+          LoadingService.hideLoading();
           if (tabelaPrecoProdutoList.length > 0) {
             tabelaPrecoProdutoList.forEach(function (tabelaPrecoProduto) {
 

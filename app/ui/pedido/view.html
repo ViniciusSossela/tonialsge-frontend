@@ -44,13 +44,18 @@
                             placeholder="Nome da Empresa">
                     </div>
                     <div class="form-group">
+                        <label for="cidadeInput">Cidade</label>
+                        <input type="text" ng-model="novoCliente.cidade" class="form-control" id="cidadeInput" aria-describedby="cidadeAjuda" placeholder="Cidade da Empresa">
+                    </div>
+                    <div class="form-group">
+                        <label for="cidadeInput">Estado</label>
+                        <input type="text" ng-model="novoCliente.estado" class="form-control" id="estadoInput" aria-describedby="estadoAjuda" placeholder="Estado da Empresa">
+                    </div>
+                    <div class="form-group">
                         <label for="tabelaPrecoSelect">Tabela de preço</label>
-                        <select class="form-control" id="tabelaPrecoSelect">
-                            <option>Tabela RS/Sul</option>
-                            <option>Tabela RS/Norte</option>
-                            <option>Tabela SP/Norte</option>
-                            <option>Tabela SP/Nordeste</option>
-                            <option>Tabela PR/Norte</option>
+                        <select required ng-model="novoCliente.tabelaPrecoSelecionada" class="form-control" id="tabelaPrecoSelect">
+                            <option value="">Selecione uma tabela de preço</option>
+                            <option ng-repeat="tabelaPreco in novoCliente.tabelasPreco" ng-value="tabelaPreco.id">{{tabelaPreco.nome}}</option>
                         </select>
                     </div>
                 </form>
@@ -81,30 +86,6 @@
                         <input type="text" ng-model="novoProduto.nome" class="form-control" id="productNameInput" aria-describedby="nomeProdutoAjuda"
                             placeholder="Nome do Produto">
                     </div>
-
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Tabela de Preço</th>
-                                <th scope="col">Valor</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="tabelaPreco in novoProduto.tabelasPreco">
-                                <th scope="row">{{tabelaPreco.id}}</th>
-                                <td>{{tabelaPreco.nomeTabelaPreco}}</td>
-                                <td>
-                                    <div class="input-group input-group-sm">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">R$</span>
-                                        </div>
-                                        <input type="text" ng-model="tabelaPreco.preco" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </form>
             </div>
             <div class="modal-footer">
@@ -129,7 +110,7 @@
         <form class="form-pedido-{{rota.id}}">
 
             <div class="row">
-                <div class="col-12">
+                <div class="col-10">
                     <div class="form-group">
                         <label for="clienteSelect">Cliente</label>
                         <select ng-change="updateSelectedCliente()" ng-model="rota.selectedCliente" class="form-control" id="clienteSelect">
@@ -137,17 +118,17 @@
                         </select>
                     </div>
                 </div>
-                <!-- <div class="col-2">
+                <div class="col-2">
                     <div class="form-group">
                         <label class="transparent" for="novoCliente">.</label>
                         <button id="novoCliente" type="button" ng-click="novoClienteClicked()" class="form-control btn btn-link">Novo Cliente</button>
                     </div>
-                </div> -->
+                </div>
             </div>
 
 
             <div class="row">
-                <div class="col-12">
+                <div class="col-10">
                     <div class="form-group">
                         <label for="produtoSelect">Produto</label>
                         <select ng-change="updateSelectedProduto()" ng-model="rota.selectedProduto" class="form-control" id="produtoSelect">
@@ -155,12 +136,12 @@
                         </select>
                     </div>
                 </div>
-                <!-- <div class="col-2">
+                <div class="col-2">
                     <div class="form-group">
                         <label class="transparent" for="novoProduto">.</label>
                         <button id="novoProduto" type="button" ng-click="novoProdutoClicked()" class="form-control btn btn-link">Novo Produto</button>
                     </div>
-                </div> -->
+                </div>
             </div>
 
             <div class="row">
@@ -192,6 +173,7 @@
                         <th scope="col">Produto</th>
                         <th scope="col">Quantidade</th>
                         <th scope="col">Total</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -201,6 +183,9 @@
                         <td>{{pedido.produto}}</td>
                         <td>{{pedido.quantidade}}</td>
                         <td>{{pedido.precoTotal}}</td>
+                        <td>
+                            <button id="excluirProduto" type="button" ng-click="excluirProdutoPedido($index)" class="form-control btn btn-link">Excluir</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
