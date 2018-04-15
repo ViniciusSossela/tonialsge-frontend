@@ -24,7 +24,4 @@ angular.module('myApp.API', [])
         this.produtoTabelaPrecoURL = function (produtoId) {
             return server + "produto/" + produtoId + "/tabelapreco"
         }
-
-
-
     });
