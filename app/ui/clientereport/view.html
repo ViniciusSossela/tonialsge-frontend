@@ -1,10 +1,10 @@
 <div ng-repeat="pedido in pedidoReport">
     <div class="page">
         <div class="subpage">
-
-            <table class="table table-bordered ">
-                <p class="font-weight-bold">Cliente: {{pedido.cliente}}</p>
-
+            <table class="table table-bordered table-sm">
+                <h1 class="font-weight-bold">Cliente: {{pedido.cliente}}</h1>
+                <img class="logo-tonial" src="img/logo-tonial.png" alt="Tonial Mudas">
+                <div style="float: right;">{{pedido.data}}</div>
                 <tr>
                     <td class="font-weight-bold">Produto</td>
                     <td class="font-weight-bold">Quantidade</td>
@@ -24,8 +24,10 @@
             <p class="float-right">Total a Pagar: R$ {{pedido.totalPedidoCliente}}</p>
 
 
-            <table ng-if="pedido.produtos.length <= 7" class="table table-bordered ">
-                <p ng-if="pedido.produtos.length <= 7" style="margin-top: 80px;" class="font-weight-bold">Cliente: {{pedido.cliente}}</p>
+            <table ng-if="pedido.produtos.length <= 17" class="table table-bordered table-sm">
+                <p ng-if="pedido.produtos.length <= 17" style="margin-top: 80px;" class="font-weight-bold">Cliente: {{pedido.cliente}}</p>
+                <img ng-if="pedido.produtos.length <= 17" class="logo-tonial" src="img/logo-tonial.png" alt="Tonial Mudas">
+                <div ng-if="pedido.produtos.length <= 17" style="float: right;">{{pedido.data}}</div>
                 <tr>
                     <td class="font-weight-bold">Produto</td>
                     <td class="font-weight-bold">Quantidade</td>
@@ -41,16 +43,18 @@
                     </tr>
                 </tbody>
             </table>
-            <p ng-if="pedido.produtos.length <= 7"  class="float-right">Total a Pagar: R$ {{pedido.totalPedidoCliente}}</p>
+            <p ng-if="pedido.produtos.length <= 17" class="float-right">Total a Pagar: R$ {{pedido.totalPedidoCliente}}</p>
         </div>
     </div>
 
 
-    <div ng-if="pedido.produtos.length > 7" class="page">
+    <div ng-if="pedido.produtos.length > 17" class="page">
         <div class="subpage">
 
-            <table class="table table-bordered ">
-                <p class="font-weight-bold">Cliente: {{pedido.cliente}}</p>
+            <table class="table table-bordered table-sm">
+                <h1 class="font-weight-bold">Cliente: {{pedido.cliente}}</h1>
+                <img class="logo-tonial" src="img/logo-tonial.png" alt="Tonial Mudas">
+                <div style="float: right;">{{pedido.data}}</div>
 
                 <tr>
                     <td class="font-weight-bold">Produto</td>

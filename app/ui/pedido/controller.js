@@ -202,6 +202,7 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
                     idProduto: rotaInEdition.selectedProduto,
                     cliente: rotaInEdition.selectedCliente + "-" + rotaInEdition.selectedClienteNome,
                     produto: rotaInEdition.selectedProduto + "-" + rotaInEdition.selectedProdutoNome,
+                    produtoName: rotaInEdition.selectedProdutoNome,
                     quantidade: rotaInEdition.quantidade,
                     precoTotal: (rotaInEdition.quantidade * rotaInEdition.preco).toFixed(2)
                 });

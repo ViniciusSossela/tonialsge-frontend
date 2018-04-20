@@ -50,6 +50,15 @@ angular.module('myApp.rotareport', ['ngRoute', 'ngStorage'])
                 // alert('Tente abrir novamente');
             } else {
                 var pedidos = JSON.parse($localStorage.message);
+                pedidos.sort(function(a, b){
+                    var nameA=a.produtoName.toLowerCase(), nameB=b.produtoName.toLowerCase();
+                    if (nameA < nameB) //sort string ascending
+                     return -1;
+                    if (nameA > nameB)
+                     return 1;
+                    return 0; //default return value (no sorting)
+                   });
+
                 const grouped = groupBy(pedidos, ped => ped.produto);
 
 

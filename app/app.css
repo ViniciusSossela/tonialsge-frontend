@@ -246,7 +246,7 @@ a {
         box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-    .page {
+    /* .page {
         width: 210mm;
         min-height: 297mm;
         padding: 20mm;
@@ -261,13 +261,13 @@ a {
         border: 5px white solid;
         height: 257mm;
         outline: 2cm white solid;
-    }
+    } */
     
     @page {
         size: A4;
         margin: 0;
     }
-    @media print {
+    /* @media print {
         html, body {
             width: 210mm;
             height: 297mm;        
@@ -282,4 +282,10 @@ a {
             background: initial;
             page-break-after: always;
         }
+    } */
+
+    h1 {
+      page-break-before: always;
+      font-size: 12pt;
+      font-weight: 700 !important;
     }
