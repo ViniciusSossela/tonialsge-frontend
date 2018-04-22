@@ -1,79 +1,82 @@
 <div ng-repeat="pedido in pedidoReport">
     <div class="page">
         <div class="subpage">
-            <table class="table table-bordered table-sm">
-                <h1 class="font-weight-bold">Cliente: {{pedido.cliente}}</h1>
-                <img class="logo-tonial" src="img/logo-tonial.png" alt="Tonial Mudas">
-                <div style="float: right;">{{pedido.data}}</div>
-                <tr>
-                    <td class="font-weight-bold">Produto</td>
-                    <td class="font-weight-bold">Quantidade</td>
-                    <td class="font-weight-bold">Valor Unitário</td>
-                    <td class="font-weight-bold">Valor Total</td>
-                </tr>
-
-                <tbody>
-                    <tr ng-repeat="pedidoItem in pedido.produtos">
-                        <td style="width: 50%">{{pedidoItem.produto}}</td>
-                        <td style="width: 16.66%">{{pedidoItem.quantidade}}</td>
-                        <td style="width: 16.66%">RS {{(pedidoItem.precoTotal / pedidoItem.quantidade).toFixed(2)}}</td>
-                        <td style="width: 16.66%">R$ {{pedidoItem.precoTotal}}</td>
+            <div style="height: 168.5mm;">
+                <table class="table table-bordered table-sm">
+                    <h1 class="font-weight-bold" style="margin-top: 30px;">Cliente: {{pedido.cliente}}</h1>
+                    <img class="logo-tonial" src="img/logo-tonial.png" alt="Tonial Mudas">
+                    <div style="float: right;">{{pedido.data}}</div>
+                    <tr>
+                        <td class="font-weight-bold">Produto</td>
+                        <td class="font-weight-bold">Quantidade</td>
+                        <td class="font-weight-bold">Valor Unitário</td>
+                        <td class="font-weight-bold">Valor Total</td>
                     </tr>
-                </tbody>
-            </table>
-            <p class="float-right">Total a Pagar: R$ {{pedido.totalPedidoCliente}}</p>
 
-
-            <table ng-if="pedido.produtos.length <= 17" class="table table-bordered table-sm">
-                <p ng-if="pedido.produtos.length <= 17" style="margin-top: 80px;" class="font-weight-bold">Cliente: {{pedido.cliente}}</p>
-                <img ng-if="pedido.produtos.length <= 17" class="logo-tonial" src="img/logo-tonial.png" alt="Tonial Mudas">
-                <div ng-if="pedido.produtos.length <= 17" style="float: right;">{{pedido.data}}</div>
-                <tr>
-                    <td class="font-weight-bold">Produto</td>
-                    <td class="font-weight-bold">Quantidade</td>
-                    <td class="font-weight-bold">Valor Unitário</td>
-                    <td class="font-weight-bold">Valor Total</td>
-                </tr>
-                <tbody>
-                    <tr ng-repeat="pedidoItem in pedido.produtos">
-                        <td style="width: 50%">{{pedidoItem.produto}}</td>
-                        <td style="width: 16.66%">{{pedidoItem.quantidade}}</td>
-                        <td style="width: 16.66%">RS {{(pedidoItem.precoTotal / pedidoItem.quantidade).toFixed(2)}}</td>
-                        <td style="width: 16.66%">R$ {{pedidoItem.precoTotal}}</td>
+                    <tbody>
+                        <tr ng-repeat="pedidoItem in pedido.produtos">
+                            <td style="width: 50%">{{pedidoItem.produto}}</td>
+                            <td style="width: 16.66%">{{pedidoItem.quantidade}}</td>
+                            <td style="width: 16.66%">RS {{(pedidoItem.precoTotal / pedidoItem.quantidade).toFixed(2)}}</td>
+                            <td style="width: 16.66%">R$ {{pedidoItem.precoTotal}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="float-right">Total a Pagar: R$ {{pedido.totalPedidoCliente}}</p>
+            </div>
+            <div style="height: 148.5mm;">
+                <table ng-if="pedido.produtos.length <= 17" class="table table-bordered table-sm">
+                    <p ng-if="pedido.produtos.length <= 17" style="margin-top: 30px;" class="font-weight-bold">Cliente: {{pedido.cliente}}</p>
+                    <img ng-if="pedido.produtos.length <= 17" class="logo-tonial" src="img/logo-tonial.png" alt="Tonial Mudas">
+                    <div ng-if="pedido.produtos.length <= 17" style="float: right;">{{pedido.data}}</div>
+                    <tr>
+                        <td class="font-weight-bold">Produto</td>
+                        <td class="font-weight-bold">Quantidade</td>
+                        <td class="font-weight-bold">Valor Unitário</td>
+                        <td class="font-weight-bold">Valor Total</td>
                     </tr>
-                </tbody>
-            </table>
-            <p ng-if="pedido.produtos.length <= 17" class="float-right">Total a Pagar: R$ {{pedido.totalPedidoCliente}}</p>
+                    <tbody>
+                        <tr ng-repeat="pedidoItem in pedido.produtos">
+                            <td style="width: 50%">{{pedidoItem.produto}}</td>
+                            <td style="width: 16.66%">{{pedidoItem.quantidade}}</td>
+                            <td style="width: 16.66%">RS {{(pedidoItem.precoTotal / pedidoItem.quantidade).toFixed(2)}}</td>
+                            <td style="width: 16.66%">R$ {{pedidoItem.precoTotal}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p ng-if="pedido.produtos.length <= 17" class="float-right">Total a Pagar: R$ {{pedido.totalPedidoCliente}}</p>
+            </div>
         </div>
     </div>
-
-
     <div ng-if="pedido.produtos.length > 17" class="page">
-        <div class="subpage">
-
-            <table class="table table-bordered table-sm">
-                <h1 class="font-weight-bold">Cliente: {{pedido.cliente}}</h1>
-                <img class="logo-tonial" src="img/logo-tonial.png" alt="Tonial Mudas">
-                <div style="float: right;">{{pedido.data}}</div>
-
-                <tr>
-                    <td class="font-weight-bold">Produto</td>
-                    <td class="font-weight-bold">Quantidade</td>
-                    <td class="font-weight-bold">Valor Unitário</td>
-                    <td class="font-weight-bold">Valor Total</td>
-                </tr>
-
-                <tbody>
-                    <tr ng-repeat="pedidoItem in pedido.produtos">
-                        <td style="width: 50%">{{pedidoItem.produto}}</td>
-                        <td style="width: 16.66%">{{pedidoItem.quantidade}}</td>
-                        <td style="width: 16.66%">RS {{(pedidoItem.precoTotal / pedidoItem.quantidade).toFixed(2)}}</td>
-                        <td style="width: 16.66%">R$ {{pedidoItem.precoTotal}}</td>
+            <div class="subpage">
+        
+                <table class="table table-bordered table-sm">
+                    <h1 class="font-weight-bold" style="margin-top: 30px;">Cliente: {{pedido.cliente}}</h1>
+                    <img class="logo-tonial" src="img/logo-tonial.png" alt="Tonial Mudas">
+                    <div style="float: right;">{{pedido.data}}</div>
+        
+                    <tr>
+                        <td class="font-weight-bold">Produto</td>
+                        <td class="font-weight-bold">Quantidade</td>
+                        <td class="font-weight-bold">Valor Unitário</td>
+                        <td class="font-weight-bold">Valor Total</td>
                     </tr>
-                </tbody>
-            </table>
-            <p class="float-right">Total a Pagar: R$ {{pedido.totalPedidoCliente}}</p>
-
+        
+                    <tbody>
+                        <tr ng-repeat="pedidoItem in pedido.produtos">
+                            <td style="width: 50%">{{pedidoItem.produto}}</td>
+                            <td style="width: 16.66%">{{pedidoItem.quantidade}}</td>
+                            <td style="width: 16.66%">RS {{(pedidoItem.precoTotal / pedidoItem.quantidade).toFixed(2)}}</td>
+                            <td style="width: 16.66%">R$ {{pedidoItem.precoTotal}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="float-right">Total a Pagar: R$ {{pedido.totalPedidoCliente}}</p>
+        
+            </div>
         </div>
-    </div>
 </div>
+
+
+
