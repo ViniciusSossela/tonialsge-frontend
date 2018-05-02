@@ -82,6 +82,7 @@ angular.module('myApp.clientereport', ['ngRoute', 'ngStorage'])
                 });
 
                 $scope.pedidoReport = pedidosPorCliente;
+                
                 $localStorage.$reset();
             }
         }

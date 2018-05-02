@@ -1,7 +1,7 @@
 <div ng-repeat="pedido in pedidoReport">
     <div class="page">
         <div class="subpage">
-            <div style="height: 168.5mm;">
+            <div ng-style="{'height':pedido.produtos.length <= 16 ? '168.5mm' : '100%'}">
                 <table class="table table-bordered table-sm">
                     <h1 class="font-weight-bold" style="margin-top: 50px;">Cliente: {{pedido.cliente}}</h1>
                     <img class="logo-tonial" src="img/logo-tonial.png" alt="Tonial Mudas">
@@ -25,7 +25,7 @@
                 <p class="float-right">Total a Pagar: R$ {{pedido.totalPedidoCliente}}</p>
             </div>
             
-            <div style="height: 148.5mm;">
+            <div ng-style="{'height':pedido.produtos.length <= 16 ? '148.5mm' : '0%'}">
                 <table ng-if="pedido.produtos.length <= 16" class="table table-bordered table-sm">
                     <p ng-if="pedido.produtos.length <= 16" style="margin-top: 50px;" class="font-weight-bold">Cliente: {{pedido.cliente}}</p>
                     <img ng-if="pedido.produtos.length <= 16" class="logo-tonial" src="img/logo-tonial.png" alt="Tonial Mudas">
