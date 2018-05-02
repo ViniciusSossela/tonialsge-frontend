@@ -48,6 +48,17 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
                 onSuccess(produtos) {
                     produtosList = produtos;
                     var rotaInEdition = $scope.rotas.filter((rota) => rota.id === getRotaSelecionada())[0]
+
+                    produtosList.sort(function (a, b) {
+                        var nameA = a.nome.toLowerCase(), nameB = b.nome.toLowerCase();
+                        if (nameA < nameB) //sort string ascending
+                            return -1;
+                        if (nameA > nameB)
+                            return 1;
+                        return 0; //default return value (no sorting)
+                    });
+
+
                     rotaInEdition.produtos = produtosList;
                 }
             }
@@ -62,6 +73,16 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
                 }
 
                 onSuccess(rotas) {
+
+                    rotas.sort(function (a, b) {
+                        var nameA = a.nome.toLowerCase(), nameB = b.nome.toLowerCase();
+                        if (nameA < nameB) //sort string ascending
+                            return -1;
+                        if (nameA > nameB)
+                            return 1;
+                        return 0; //default return value (no sorting)
+                    });
+                    
                     $scope.rotasList = rotas;
                 }
             }
@@ -86,8 +107,16 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
                 }
 
                 onSuccess(clientesByRota) {
-                    // var rotaInEdition = $scope.rotas.filter((rota) => rota.id === clientesByRota[0].rota.id.toString())[0]
                     var rotaInEdition = getRotaSelecionadaToEdition()
+
+                    clientesByRota.sort(function (a, b) {
+                        var nameA = a.nome.toLowerCase(), nameB = b.nome.toLowerCase();
+                        if (nameA < nameB) //sort string ascending
+                            return -1;
+                        if (nameA > nameB)
+                            return 1;
+                        return 0; //default return value (no sorting)
+                    });
 
                     rotaInEdition.clientes = clientesByRota;
                 }
@@ -116,7 +145,7 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
                 ProdutoService.findTabelaPreco(produtoId, tabelaPrecoClienteId, new TabelaPrecoProdutoCallback())
             }
 
-            function loadAllTabelasPreco () {
+            function loadAllTabelasPreco() {
                 TabelaPrecoService.tabelaPrecoAll(new TabelaPrecoCallback())
             }
             loadAllTabelasPreco();
@@ -186,7 +215,7 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
                 $('#myModal').modal('hide')
             }
 
-            $scope.excluirProdutoPedido = function(pedidoId) {
+            $scope.excluirProdutoPedido = function (pedidoId) {
                 var rotaInEdition = getRotaSelecionadaToEdition()
                 rotaInEdition.pedidos.splice(pedidoId, 1)
             }
@@ -246,10 +275,10 @@ angular.module('myApp.pedido', ['ngStorage', 'ngRoute', 'ui.router'])
                     id: 0,
                     nome: $scope.novoCliente.nome,
                     rota: {
-                        id : getRotaSelecionada()
+                        id: getRotaSelecionada()
                     },
                     tabelaPreco: {
-                        id : $scope.novoCliente.tabelaPrecoSelecionada
+                        id: $scope.novoCliente.tabelaPrecoSelecionada
                     },
                     cidade: $scope.novoCliente.cidade,
                     estado: $scope.novoCliente.estado
